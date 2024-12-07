@@ -1,0 +1,87 @@
+\section{Symmetric Matrices}
+\subsection{Definition}
+\begin{definition} Definition of Symmetric Matrices
+
+    Matrix \(A\) is symmetric if \(A^T = A\).
+\end{definition}
+
+\subsection{Symmetry of \(A A^T\)}
+\(A A^T\) is also a symmetric matrix:
+\begin{align}
+    A A^T &= \begin{pmatrix}
+        \text{---} & a_1 & \text{---} \\
+        \text{---} & a_2 & \text{---} \\
+        & \vdots & \\
+        \text{---} & a_n & \text{---}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \spike{25pt}{$a_1$}  & \spike{25pt}{$a_2$} & \dots & \spike{25pt}{$a_n$}
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        a_1 \cdot a_1 & \dots  & a_1 \cdot a_n \\
+        \vdots & \ddots & \vdots \\
+        a_n \cdot a_1 & \dots  & a_n \cdot a_n
+    \end{pmatrix}
+\end{align}
+
+\subsection{Eigenspaces of Symmetric Matrices}
+\begin{theorem}
+    \(A\) is a symmetric matrix, with eigenvectors \(\Vec{v_1}\) and \(\Vec{v_2}\) corresponding to two distinct eigenvalues. Then, \(\Vec{v_1}\) and \(\Vec{v_2}\) are orthogonal. More generally, eigenspaces associated with distinct eigenvalues are orthogonal subspaces.
+\end{theorem}
+
+\subsection{Spectral Theorem}
+\begin{theorem}
+    An \(n \times n\) symmetric matrix \(A\) has the following properties:
+    \begin{enumerate}
+        \item All eigenvalues of \(A\) are real.
+        \item The dimension of each eigenspace is full, that its dimension is equal to its algebraic multiplicity.
+        \item The eigenspace are mutually orthogonal.
+        \item \(A\) can be diagonalized: \(A = P D P^{-1} = P D P^T\), where \(D\) is diagonal and \(P\) is an orthogonal matrix.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition} Spectral Decomposition
+
+    Suppose \(A\) can be diagonalized as \(A = P D P^T\), then \(A\) has the decomposition
+    \[A = \lambda_1 U_1 U_1^T + \lambda_2 U_2 U_2^T + \dots + \lambda_n U_n U_n^T = \sum_{k=1}^{n} \lambda_k U_k U_k^T \]
+    The following is true about the spectral decomposition:
+    \begin{enumerate}
+        \item \(U_n U_n^T\) will always be rank 1. 
+        \item \(U_1 U_1^T \Vec{x} = \text{proj}_{U_1} (\Vec{x})\)
+        \item After ordering the terms largest to smallest by their corresponding eigenvalue, one can determine a rank \(n\) approximation of \(A\) by taking the first \(n\) terms.
+    \end{enumerate}
+\end{definition}
+
+\noindent
+\newline
+\textbf{Example:}
+\begin{align}
+    A &= \begin{pmatrix}
+        2 & 0 & 2 \\
+        0 & 1 & 0 \\
+        2 & 0 & 2
+    \end{pmatrix} \\
+    &= \lambda_1 U_1 U_1^T + \lambda_2 U_2 U_2^T + \lambda_3 U_3 U_3^T \\
+    &= 4 \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}}
+    \end{pmatrix} + 1 \begin{pmatrix}
+        0 \\ 1 \\ 0 
+    \end{pmatrix} \begin{pmatrix}
+        0 & 1 & 0 
+    \end{pmatrix} + 0 \begin{pmatrix}
+        -\frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} \begin{pmatrix}
+        -\frac{1}{\sqrt{2}} & 0 & \frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    &= 4 \begin{pmatrix}
+        \frac{1}{2} & 0 & \frac{1}{2} \\
+        0 & 0 & 0 \\
+        \frac{1}{2} & 0 & \frac{1}{2}
+    \end{pmatrix} + 1 \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{align}

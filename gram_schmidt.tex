@@ -1,0 +1,84 @@
+\section{Gram-Schmidt Process}
+\begin{theorem} The Gram-Schmidt Process
+
+    Given a basis \(\{\bold{x_1}, \dots, \bold{x_p}\}\) for a nonzero subspace \(W\) of \(\Re^n\), define:
+    \[\bold{v_1}=\bold{x_1}\]
+    \[\bold{v_2}=\bold{x_2}-\frac{\bold{x_2}\cdot \bold{v_1}}{\bold{v_1} \cdot \bold{v_1}}\bold{v_1}\]
+    \[\bold{v_3}=\bold{x_3}-\frac{\bold{x_3}\cdot \bold{v_1}}{\bold{v_1} \cdot \bold{v_1}}\bold{v_1}-\frac{\bold{x_3}\cdot \bold{v_2}}{\bold{v_2} \cdot \bold{v_2}}\bold{v_2}\]
+    \[\vdots \notag\]
+    \[\bold{v_p}=\bold{x_p}-\frac{\bold{x_p}\cdot \bold{v_1}}{\bold{v_1} \cdot \bold{v_1}}\bold{v_1}-\frac{\bold{x_p}\cdot \bold{v_2}}{\bold{v_2} \cdot \bold{v_2}}\bold{v_2} - \dots - \frac{\bold{x_p}\cdot \bold{v_{p-1}}}{\bold{v_{p-1}} \cdot \bold{v_{p-1}}}\bold{v_{p-1}}\]
+
+    Then \(\{\bold{v_1},\dots,\bold{v_p}\}\) is an orthogonal basis for \(W\). In addition,
+    \[\text{Span} \{\bold{v_1},\dots,\bold{v_p}\} = \text{Span} \{\bold{x_1},\dots,\bold{x_p}\}\; \text{ for } 1 \le k \le p\]
+\end{theorem}
+
+\begin{definition}
+    A set of vectors from an orthonormal basis if the vectors are mutually orthogonal and have unit length.
+\end{definition}
+
+\subsection{QR Factorization}
+\begin{theorem} QR Factorization
+
+Any \(m\times n\) matrix \(A\) with linearly independent columns has the QR factorization:
+\[A = QR\]
+
+\noindent
+where:
+
+\begin{enumerate}
+    \item \(Q\) is \(m\times n\), its columns are an orthonormal basis for \(\text{Col} \; A\).
+    \item \(R\) is \(n\times n\), upper triangular, with positive entries on its diagonal, and the length of the jth column of \(R\) is equal to the length of the jth column of \(A\).
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\newline
+\textbf{Example 1: }
+\begin{equation}
+    \Vec{v_1} = \begin{pmatrix}
+        3 \\ 2 \\ 0
+    \end{pmatrix}, \; \Vec{v_2} = \begin{pmatrix}
+        -2 \\ 3 \\ 1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\textbf{Steps:}
+\begin{enumerate}
+    \item Determine \(Q\) matrix.
+    \begin{enumerate}
+        \item Do Gram-Schmidt to the columns of \(A\). In this case, the columns of \(A\) are already orthogonal.
+        \item Normalize the basis.
+    \end{enumerate}
+    \item Calculate \(R = Q^T A\).
+\end{enumerate}
+
+\begin{equation}
+    \{\Vec{w_1}, \Vec{w_2}\} = \left\{ \begin{pmatrix}
+        \frac{3}{\sqrt{13}} \\ \frac{2}{\sqrt{13}} \\ 0
+    \end{pmatrix}, \; \begin{pmatrix}
+        \frac{-2}{\sqrt{14}} \\ \frac{3}{\sqrt{14}} \\ \frac{1}{\sqrt{14}}
+    \end{pmatrix} \right\}
+\end{equation}
+
+\begin{align}
+    Q = \begin{pmatrix}
+        \frac{3}{\sqrt{13}} & \frac{-2}{\sqrt{14}} \\
+        \frac{2}{\sqrt{13}} & \frac{3}{\sqrt{14}} \\
+        0 & \frac{1}{\sqrt{14}} \\
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    R &= \begin{pmatrix}
+        \frac{3}{\sqrt{13}} & \frac{2}{\sqrt{13}} & 0 \\
+        \frac{-2}{\sqrt{14}} & \frac{3}{\sqrt{14}} & \frac{1}{\sqrt{14}}
+    \end{pmatrix}
+    \begin{pmatrix}
+        3 & -2 \\ 2 & 3 \\ 0 & 1
+    \end{pmatrix}\\
+    &= \begin{pmatrix}
+        \sqrt{13} & 0 \\
+        0 & \sqrt{14}
+    \end{pmatrix}
+\end{align}

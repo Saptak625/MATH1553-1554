@@ -1,0 +1,649 @@
+\section{Singular Value Decomposition}
+\subsection{Introduction}
+\begin{equation}
+    A = U \Sigma V^T
+\end{equation}
+
+\noindent
+\newline
+\textbf{Facts:}
+\begin{itemize}
+    \item \(U\) and \(V^T\) is an orthogonal matrix.
+    \item \(\Sigma\) is a diagonal matrix and the same size as \(A\).
+\end{itemize}
+
+\noindent
+\newline
+\textbf{Steps:}
+\begin{enumerate}
+    \item Compute \(A^T A\).
+    \item Find eigenvalues of \(A^T A\), call them \(\sigma_i^2\).
+    \item Find orthonormal eigenvectors of \(A^T A\), call them \(v_i\).
+    \item Compute \(u_i = \frac{1}{\sigma_i} A v_i\)
+    \item \(A = U \Sigma V^T\), where \(U = \begin{pmatrix}
+        u_1 & u_2 & \dots & u_m
+    \end{pmatrix}\) and \(V = \begin{pmatrix}
+        v_1 & v_2 & \dots & v_n
+    \end{pmatrix}\) are both orthogonal matrices.
+\end{enumerate}
+
+\begin{theorem} Singular Value Decomposition
+
+    A \(m\times n\) matrix with rank \(r\) and non-zero singular values \(\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r\) has a decomposition \(U \Sigma V^T\) where
+    \[\Sigma = \begin{pmatrix}
+        D & 0 \\ 0 & 0
+    \end{pmatrix}_{m\times n} = \begin{pmatrix}
+        \sigma_1 & 0 & \dots & 0 & \\
+        0 & \sigma_2 & \dots & \cdot & 0 \\
+        \cdot & \cdot & \ddots & \cdot & \\
+        0 & 0 & \dots & \sigma_r & \\
+        & 0 & & & 0
+    \end{pmatrix}\]
+    \(U\) is \(m\times m\) orthogonal matrix, and \(V\) is a \(n\times n\) orthogonal matrix.
+\end{theorem}
+
+\subsection{Computing the SVD}
+\noindent
+\newline
+\textbf{Example 1: Square, Full Rank Matrix}
+\begin{align}
+    \begin{pmatrix}
+        3 & 0 \\ 8 & 3 
+    \end{pmatrix} = \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2}
+    \end{pmatrix} \begin{pmatrix}
+        \sigma_1 & 0 \\ 0 & \sigma_2
+    \end{pmatrix} \begin{pmatrix}
+        \Vec{v_1} & \Vec{v_2}
+    \end{pmatrix}^T
+\end{align}
+
+\noindent
+Procedure:
+\begin{enumerate}
+    \item Compute \(A^T A\) and find \(\lambda\)'s.
+    \item Find \(\Vec{v_1}, \Vec{v_2}\) orthonormal eigenvectors of \(A^T A\).
+    \item Find \(\Vec{u_1}, \Vec{u_2}\) using \(\Vec{u_i} = \frac{1}{\sigma_i} A\Vec{v}_i\).
+\end{enumerate}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        3 & 8 \\ 0 & 3
+    \end{pmatrix} \begin{pmatrix}
+        3 & 0 \\ 8 & 3
+    \end{pmatrix} = \begin{pmatrix}
+        73 & 24 \\ 24 & 9
+    \end{pmatrix} \\
+    p(\lambda) &= \lambda^2 - 82 \lambda + 81 = 0 \\
+    &= (\lambda - 81)(\lambda - 1) = 0 \\
+    \lambda &= 81, 1 \\
+    \sigma &= 9, 1
+\end{align}
+
+\begin{align}
+    A^T A - 81 I_2 &\Rightarrow \begin{pmatrix}
+        1 & -3 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        \frac{3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}}
+    \end{pmatrix} \\
+    A^T A - I_2 &\Rightarrow \begin{pmatrix}
+        1 & \frac{1}{3} \\ 0 & 0
+    \end{pmatrix} \;\;\; v_2 = \begin{pmatrix}
+        -\frac{1}{\sqrt{10}} \\ \frac{3}{\sqrt{10}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_1} &= \frac{1}{9} \begin{pmatrix}
+        3 & 0 \\ 8 & 3
+    \end{pmatrix} \begin{pmatrix}
+        \frac{3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}}
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{1}{\sqrt{10}} \\ \frac{3}{\sqrt{10}}
+    \end{pmatrix} \\
+    \Vec{u_2} &= \frac{1}{9} \begin{pmatrix}
+        3 & 0 \\ 8 & 3
+    \end{pmatrix} \begin{pmatrix}
+        -\frac{1}{\sqrt{10}} \\ \frac{3}{\sqrt{10}}
+    \end{pmatrix} = \begin{pmatrix}
+        -\frac{3}{\sqrt{10}} \\ \frac{1}{\sqrt{10}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        3 & 0 \\ 8 & 3 
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{1}{\sqrt{10}} & -\frac{3}{\sqrt{10}} \\
+        \frac{3}{\sqrt{10}} & \frac{1}{\sqrt{10}}
+    \end{pmatrix} \begin{pmatrix}
+        9 & 0 \\ 0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        \frac{3}{\sqrt{10}} & \frac{1}{\sqrt{10}} \\
+        -\frac{1}{\sqrt{10}} & \frac{3}{\sqrt{10}}
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 2: Non-square, Full Rank Matrix}
+\begin{align}
+    \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1 
+    \end{pmatrix} = \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2} & \Vec{u_3}
+    \end{pmatrix} \begin{pmatrix}
+        \sigma_1 & 0 \\ 0 & \sigma_2 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \Vec{v_1} & \Vec{v_2}
+    \end{pmatrix}^T
+\end{align}
+
+\noindent
+Procedure:
+\begin{enumerate}
+    \item Compute \(A^T A\) and find \(\lambda\)'s.
+    \item Find \(\Vec{v_1}, \Vec{v_2}\) orthonormal eigenvectors of \(A^T A\).
+    \item Find \(\Vec{u_1}, \Vec{u_2}\) using \(\Vec{u_i} = \frac{1}{\sigma_i} A\Vec{v}_i\).
+    \item Find \(\Vec{u_3}\) such that it is orthogonal to \(\Vec{u_1},\Vec{u_2}\) and is of unit length.
+\end{enumerate}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        3 & 0 & 1 \\ -3 & 0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1 
+    \end{pmatrix} = \begin{pmatrix}
+        10 & -8 \\ -8 & 10
+    \end{pmatrix} \\
+    p(\lambda) &= \lambda^2 - 20 \lambda + 36 = 0 \\
+    &= (\lambda - 18)(\lambda - 2) = 0 \\
+    \lambda &= 18, 2 \\
+    \sigma &= 3\sqrt{2}, \sqrt{2}
+\end{align}
+
+\begin{align}
+    A^T A - 18 I_2 &\Rightarrow \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    A^T A - 2 I_2 &\Rightarrow \begin{pmatrix}
+        1 & -1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_2 = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_1} &= \frac{1}{3\sqrt{2}} \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ 0 \\ 0
+    \end{pmatrix} \\
+    \Vec{u_2} &= \frac{1}{\sqrt{2}} \begin{pmatrix}
+        3 & 0 \\ 8 & 3
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_3} \cdot \Vec{u_1} = 0, \;\; \Vec{u_3} \cdot \Vec{u_2} &= 0, \;\; ||\Vec{u_3}|| = 1 \;\; \\
+    \Vec{u_3} &= \begin{pmatrix}
+        0 \\ 1 \\ 0
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        3 & 0 \\ 8 & 3 
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix} \begin{pmatrix}
+        3\sqrt{2} & 0 \\ 0 & \sqrt{2}
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 3: Tall, Full Rank Matrix}
+\begin{align}
+    \begin{pmatrix}
+        2 & 0 \\ 0 & -3 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} = \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2} & \Vec{u_3} & \Vec{u_4}
+    \end{pmatrix} \begin{pmatrix}
+        \sigma_1 & 0 \\ 0 & \sigma_2 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \Vec{v_1} & \Vec{v_2}
+    \end{pmatrix}^T
+\end{align}
+
+\noindent
+Procedure:
+\begin{enumerate}
+    \item Compute \(A^T A\) and find \(\lambda\)'s.
+    \item Find \(\Vec{v_1}, \Vec{v_2}\) orthonormal eigenvectors of \(A^T A\).
+    \item Find \(\Vec{u_1}, \Vec{u_2}\) using \(\Vec{u_i} = \frac{1}{\sigma_i} A\Vec{v}_i\) for nonzero \(\sigma\).
+    \item Find \(\Vec{u_3}, \Vec{u_4}\) such that it forms an orthogonal basis for \(\Re^4\). Do this by finding the \(\text{Nul} \; \begin{pmatrix}
+        \Vec{u_1}^T \\ \Vec{u_2}^T
+    \end{pmatrix}\), since \(\text{Nul} \; \begin{pmatrix}
+        \Vec{u_1}^T \\ \Vec{u_2}^T
+    \end{pmatrix} = \left(\text{Row} \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2}
+    \end{pmatrix} \right)^\perp\).
+\end{enumerate}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        2 & 0 & 0 & 0 \\ 0 & -3 & 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        2 & 0 \\ 0 & -3 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} = \begin{pmatrix}
+        4 & 0 \\ 0 & 9
+    \end{pmatrix} \\
+    \lambda &= 9, 4 \\
+    \sigma &= 3, 2
+\end{align}
+
+\begin{align}
+    A^T A - 9 I_2 &\Rightarrow \begin{pmatrix}
+        -5 & 0 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix} \\
+    A^T A - 4 I_2 &\Rightarrow \begin{pmatrix}
+        0 & 0 \\ 0 & 5
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_1} &= \frac{1}{3} \begin{pmatrix}
+        2 & 0 \\ 0 & -3 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        0 \\ 1
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\ -1 \\ 0 \\ 0
+    \end{pmatrix} \\
+    \Vec{u_2} &= \frac{1}{2} \begin{pmatrix}
+        2 & 0 \\ 0 & -3 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ 0 \\ 0 \\ 0
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        \Vec{u_1}^T \\ \Vec{u_2}^T
+    \end{pmatrix} &= \begin{pmatrix}
+        0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0
+    \end{pmatrix} \Rightarrow \begin{pmatrix}
+        1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0
+    \end{pmatrix} \\
+    \Vec{u_3} &= \begin{pmatrix}
+        0 \\ 0 \\ 1 \\ 0
+    \end{pmatrix}, \; \Vec{u_4} = \begin{pmatrix}
+        0 \\ 0 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align} 
+
+\begin{align}
+    \begin{pmatrix}
+        3 & 0 \\ 8 & 3 
+    \end{pmatrix} = \begin{pmatrix}
+        0 & 1 & 0 & 0 \\
+        -1 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 
+    \end{pmatrix} \begin{pmatrix}
+        3 & 0 \\ 0 & 2 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 4: Tall, Non-Full Rank Matrix}
+\begin{align}
+    \begin{pmatrix}
+        1 & -1 \\ -2 & 2 \\ 2 & -2
+    \end{pmatrix} = \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2} & \Vec{u_3}
+    \end{pmatrix} \begin{pmatrix}
+        \sigma_1 & 0 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \Vec{v_1} & \Vec{v_2}
+    \end{pmatrix}^T
+\end{align}
+
+\noindent
+Procedure:
+\begin{enumerate}
+    \item Compute \(A^T A\) and find \(\lambda\)'s.
+    \item Find \(\Vec{v_1}, \Vec{v_2}\) orthonormal eigenvectors of \(A^T A\).
+    \item Find \(\Vec{u_1}\) using \(\Vec{u_i} = \frac{1}{\sigma_i} A\Vec{v}_i\) for nonzero \(\sigma\).
+    \item Find \(\Vec{u_2}, \Vec{u_3}\) such that it forms an orthogonal basis for \(\Re^4\). One way to do this is by finding the \(\text{Nul} \; \begin{pmatrix}
+        \Vec{u_1}^T
+    \end{pmatrix}\), since \(\text{Nul} \; \begin{pmatrix}
+        \Vec{u_1}^T
+    \end{pmatrix} = \left(\text{Row} \begin{pmatrix}
+        \Vec{u_1}
+    \end{pmatrix} \right)^\perp\), and then performing the Gram-Schmidt algorithm on the null space basis to get an orthonormal basis. Another way to do this is by performing the Gram-Schmidt algorithm on \(\{ \Vec{u_1}, \Vec{e_1}, \Vec{e_2} \}\).
+\end{enumerate}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        1 & -2 & 2 \\ -1 & 2 & -2
+    \end{pmatrix} \begin{pmatrix}
+        1 & -1 \\ -2 & 2 \\ 2 & -2
+    \end{pmatrix} = \begin{pmatrix}
+        9 & -9 \\ -9 & 9
+    \end{pmatrix} \\
+    p(\lambda) &= \lambda^2 - 18 \lambda = 0 \\
+    &= \lambda (\lambda - 18) = 0 \\
+    \lambda &= 18, 0 \\
+    \sigma &= 3\sqrt{2}, 0
+\end{align}
+
+\begin{align}
+    A^T A - 18 I_2 &\Rightarrow \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    A^T A - 0 I_2 &\Rightarrow \begin{pmatrix}
+        1 & -1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_2 = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_1} &= \frac{1}{3\sqrt{2}} \begin{pmatrix}
+        1 & -1 \\ -2 & 2 \\ 2 & -2
+    \end{pmatrix} \begin{pmatrix}
+        -\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} = \begin{pmatrix}
+        -\frac{1}{3} \\ \frac{2}{3} \\ -\frac{2}{3}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        \Vec{u_1}^T
+    \end{pmatrix} &\Rightarrow \begin{pmatrix}
+        1 & -2 & 2
+    \end{pmatrix}  \\ 
+    \Vec{x} &= r \begin{pmatrix}
+        2 \\ 1 \\ 0
+    \end{pmatrix} + s \begin{pmatrix}
+        -2 \\ 0 \\ 1
+    \end{pmatrix} \\
+\end{align}
+
+\noindent
+Performing the Gram-Schmidt Algorithm on \(\left\{ \begin{pmatrix}
+    2 \\ 1 \\ 0
+\end{pmatrix}, \begin{pmatrix}
+    -2 \\ 0 \\ 1
+\end{pmatrix}\right\}\),
+
+\begin{align}
+    \Vec{y_1} &= \Vec{x_1} = \begin{pmatrix}
+        2 \\ 1 \\ 0
+    \end{pmatrix} \\
+    \Vec{y_2} &= \Vec{x_2} - \frac{\Vec{x_2} \cdot \Vec{y_1}}{\Vec{y_1} \cdot \Vec{y_1}} \Vec{y_1} = \begin{pmatrix}
+        -2 \\ 4 \\ 5
+    \end{pmatrix} \\
+    \Vec{u_1} &= \begin{pmatrix}
+        \frac{2}{\sqrt{5}} \\ \frac{1}{\sqrt{5}} \\ 0
+    \end{pmatrix} \\
+    \Vec{u_2} &= \begin{pmatrix}
+        -\frac{2}{\sqrt{45}} \\ \frac{4}{\sqrt{45}} \\ \frac{5}{\sqrt{45}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        1 & -2 & 2 \\ -1 & 2 & -2
+    \end{pmatrix} = \begin{pmatrix}
+        -\frac{1}{3} & \frac{2}{\sqrt{5}} & -\frac{2}{\sqrt{45}} \\ \frac{2}{3} & \frac{1}{\sqrt{5}} & \frac{4}{\sqrt{45}} \\ -\frac{2}{3} & 0 & \frac{5}{\sqrt{45}}
+    \end{pmatrix}
+    \begin{pmatrix}
+        3\sqrt{2} & 0 \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 5: Wide, Full Rank Matrix}
+\begin{align}
+    \begin{pmatrix}
+        3 & 0 & 1 \\ -3 & 0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        \Vec{u_1} & \Vec{u_2}
+    \end{pmatrix} \begin{pmatrix}
+        \sigma_1 & 0 & 0 \\ 0 & \sigma_2 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \Vec{v_1} & \Vec{v_2} & \Vec{v_3}
+    \end{pmatrix}^T
+\end{align}
+
+\noindent
+Procedure:
+\begin{enumerate}
+    \item Since finding the SVD of a wide matrix is more computationally intensive, one can find the SVD of \(B=A^T\) and then apply \(A = (U \Sigma V^T)^T = V \Sigma^T U^T\).
+    \item Compute \(B^T B\) and find \(\lambda\)'s.
+    \item Find \(\Vec{v_1}, \Vec{v_2}\) orthonormal eigenvectors of \(B^T B\).
+    \item Find \(\Vec{u_1}, \Vec{u_2}\) using \(\Vec{u_i} = \frac{1}{\sigma_i} A\Vec{v}_i\) for nonzero \(\sigma\).
+    \item Find \(\Vec{u_3}\) such that it forms an orthogonal basis for \(\Re^3\).
+\end{enumerate}
+
+\begin{align}
+    B^T B &= \begin{pmatrix}
+        3 & 0 & 1 \\ -3 & 0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        10 & -8 \\ -8 & 10
+    \end{pmatrix} \\
+    p(\lambda) &= \lambda^2 - 20 \lambda + 36 = 0 \\
+    &= (\lambda - 18)(\lambda - 2) = 0 \\
+    \lambda &= 18, 2, 0 \\
+    \sigma &= 3\sqrt{2}, \sqrt{2}
+\end{align}
+
+\begin{align}
+    B^T B - 18 I_2 &\Rightarrow \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_1 = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    B^T B - 2 I_2 &\Rightarrow \begin{pmatrix}
+        1 & -1 \\ 0 & 0
+    \end{pmatrix} \;\;\; v_2 = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_1} &= \frac{1}{3\sqrt{2}} \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ 0 \\ 0
+    \end{pmatrix} \\ 
+    \Vec{u_2} &= \frac{1}{\sqrt{2}} \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    \Vec{u_3} &= \Vec{u_1} \times \Vec{u_2} = \begin{pmatrix}
+        0 \\ 1 \\ 0
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    A^T &= B = \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        3\sqrt{2} & 0 \\ 0 & \sqrt{2} \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    A &= V \Sigma^T U^T = \begin{pmatrix}
+        3 & 0 & 1 \\ -3 & 0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+        -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix} \begin{pmatrix}
+        3\sqrt{2} & 0 & 0 \\ 0 & \sqrt{2} & 0
+    \end{pmatrix} \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix}
+\end{align}
+
+\subsection{Low Rank Approximation of \(A\) using SVD}
+\begin{theorem} Spectral Decomposition Theorem
+
+    Since the singular values in the \(\Sigma\) matrix are ordered from largest to smallest, the following can be used to derive the n-rank approximation of \(A_n\).
+    \begin{align}
+        A_n = \sum_{i=1}^n \sigma_i \Vec{u_i} \Vec{v_i}^T
+    \end{align}
+\end{theorem}
+
+\noindent
+\newline
+\textbf{Example 1: Compute the spectral decomposition.}
+\begin{align}
+    A &= \begin{pmatrix}
+        3 & -3 \\ 0 & 0 \\ 1 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        3\sqrt{2} & 0 \\ 0 & \sqrt{2} \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    &= 3\sqrt{2} \begin{pmatrix}
+        1 \\ 0 \\ 0
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+    \end{pmatrix}
+    + \sqrt{2} \begin{pmatrix}
+        0 \\ 0 \\ 1
+    \end{pmatrix} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix} \\
+    &= 3 \sqrt{2} \begin{pmatrix}
+        \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\ 0 & 0 \\ 0 & 0
+    \end{pmatrix} + \sqrt{2} \begin{pmatrix}
+        0 & 0 \\ 0 & 0 \\ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+\subsection{Singular Values}
+\begin{definition} Singular Values
+
+    The singular values of \(A\) are defined to be:
+    \[\sigma_1 = \sqrt{\lambda_1} \ge \sigma_1 = \sqrt{\lambda_2} \dots \ge \sigma_n = \sqrt{\lambda_n}\]
+\end{definition}
+
+\noindent
+The matrix \(A^T A\) is always symmetric, with non-negative eigenvalues \(\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_n \ge 0\). Let \(\{ \Vec{v_1}, \dots, \Vec{v_n} \}\) be the associated orthonormal eigenvectors. Then
+\begin{align}
+   ||A \Vec{v_j}||^2 &= (A \Vec{v_j}) \cdot (A \Vec{v_j}) \\
+   &= \Vec{v_j}^T A^T A \Vec{v_j} \\
+   &= \lambda_j \Vec{v_j} \cdot \Vec{v_j} \\
+   &= \lambda_j ||\Vec{v_j}||^2 \\
+   &= \lambda_j
+\end{align}
+
+\noindent
+If \(A\) has rank \(r\), then \(\{ A \Vec{v_1}, \dots, A \Vec{v_r}\}\) is an orthogonal basis for \(\text{Col} A\). For \(1\le j < k \le r\)
+\begin{align}
+    (A \Vec{v_j})^T A \Vec{v_k} &= \Vec{v_j}^T A^T A \Vec{v_k} \\
+    &= \lambda_k \Vec{v_j}^T \Vec{v_k} \\
+    &= \lambda_k \Vec{v_j} \cdot \Vec{v_k} = 0
+\end{align}
+
+\subsection{SVD and the Four Subspaces}
+Suppose the \(\text{rank} \; A\) is \(r\). Given the SVD of \(A\),
+\begin{equation}
+    A = U \Sigma V^T
+\end{equation}
+
+\noindent
+An orthonormal basis for the \(\text{Col}\; A\) are the first \(r\) columns of \(U\). The remaining columns of \(U\) form an orthonormal basis for the \(\text{Nul}\; A^T\). An orthonormal basis for the \(\text{Row}\; A\) are the first \(r\) columns of \(V\). Thus, an orthonormal basis for the \(\text{Row}\; A\) are the first \(r\) rows of \(V^T\). The remaining rows of \(V^T\) form an orthonormal basis for the \(\text{Nul}\; A\).
+
+\noindent
+\newline
+In other words,
+\begin{enumerate}
+    \item \(A \Vec{v_s} = \sigma_s \Vec{u_s}\)
+    \item \(\Vec{v_1}, \dots, \Vec{v_r}\) is an orthonormal basis for \(\text{Row} \; A\).
+    \item \(\Vec{u_1}, \dots, \Vec{u_r}\) is an orthonormal basis for \(\text{Col} \; A\).
+    \item \(\Vec{v_{r+1}}, \dots, \Vec{v_n}\) is an orthonormal basis for \(\text{Nul} \; A\).
+    \item \(\Vec{u_{r+1}}, \dots, \Vec{u_n}\) is an orthonormal basis for \(\text{Nul} \; A^T\).
+\end{enumerate}
+
+\subsection{Geometric Interpretation of SVD}
+Since \(U\) and \(V^T\) are orthogonal, both matrices are pure rotations. Since \(\Sigma\) is a diagonal matrix, it is a pure dilation along the elementary basis vector directions.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=60mm,height=\textheight,keepaspectratio]{images/svd_transform.png}
+    \caption{Geometric Interpretation of SVD}
+    \label{fig:svd_geometric}
+\end{figure}
+
+\subsection{Algorithm to find SVD of \(A\)}
+Suppose \(A\) is \(m\times n\) and has rank \(r \le n\).
+\begin{enumerate}
+    \item Compute the squared singular values \(\sigma_i^2\) of \(A^T A\) and construct \(\Sigma\). This is done by finding the eigenvalues of \(A^T A\), call then \(\lambda_i \ge 0\) and set \(\sigma_i = \sqrt{\lambda_i}\).
+    \item Compute the unit singular vectors \(\Vec{v_i}\) of \(A^T A\) and use them to form \(V\). Since \(A^T A\) is symmetric, by the spectral theorem, the algebraic multiplicity is equal to the geometric multiplicity and we can find orthonormal basis \(\{ \Vec{v_1},\dots,\Vec{v_n} \}\) of \(\Re^n\) constituting of eigenvectors of \(A^T A\).
+    \item Compute an orthonormal basis for \(\text{Col} \; A\) using the following for any \(\sigma_i \ne 0\):
+    \[\Vec{u_i} = \frac{1}{\sigma_i} A \Vec{v_i}, \;\;\; i = 1,2,\dots,r\]
+    Extend the set \(\{ \Vec{u_i} \}\) to form an orthogonal basis for \(\Re^m\), use the basis for form \(U\).
+\end{enumerate}
+
+\subsection{Condition Number of a Matrix}
+\begin{definition} Condition Number
+
+    If \(A\) is invertible \(n \times n\) matrix, the ratio:
+    \[\frac{\sigma_1}{\sigma_n}\]
+    is the condition number of \(A\).
+
+    Note that:
+    \begin{itemize}
+        \item The condition number of a matrix describes the sensitivity of a solution to \(A \Vec{x} = \Vec{b}\) is to errors in \(A\).
+        \item We could define the condition number for a rectangular matrix, but that would go beyond the scope of this course.
+    \end{itemize}
+\end{definition}

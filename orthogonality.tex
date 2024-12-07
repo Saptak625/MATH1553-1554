@@ -1,0 +1,56 @@
+\section{Inner Product and Orthogonality}
+\subsection{Dot Products and Orthogonality}
+\begin{definition} Dot Product
+
+    \[\Vec{u}\cdot \Vec{v} = \Vec{u}^T\Vec{v} = u_1 v_1 + u_2 v_2 + \dots + u_n v_n\]    
+\end{definition}
+\begin{definition} Orthogonality
+
+    Two vectors \(\Vec{u}\) and \(\Vec{w}\) are orthogonal if \(\Vec{u} \cdot \Vec{v} = 0\). This is equivalent to:
+    \[||\Vec{u}+\Vec{w}||^2=||\Vec{u}||^2+||\Vec{w}||^2\]
+\end{definition}
+
+\subsection{Orthogonal Compliments and Sets}
+\begin{definition} Orthogonal Compliments
+
+    Let \(W\) be a subspace of \(\Re^n\). Vector \(\Vec{z} \in \Re^n\) is orthogonal to \(W\) if \(\Vec{z}\) is orthogonal to every vector in \(W\).
+
+    The set of all vectors orthogonal to \(W\) is a subspace, the orthogonal complement of \(W\) or \(W^\perp\).
+    \[W^\perp = \{\Vec{x} \in \Re^n : \Vec{z} \cdot \Vec{w} = 0 \text{ for all } \Vec{w} \in W\}\]
+\end{definition}
+\begin{definition} Row Space
+
+    \(\text{Row} \; A\) is the space spanned by the rows of matrix \(A\).
+\end{definition}
+
+\begin{definition}
+    A set of vectors \(\{\Vec{u_1}, \dots, \Vec{u_p}\}\) are an orthogonal set of vectors if for each \(j\ne k, \Vec{u_j}\perp \Vec{v_k}\).
+\end{definition}
+
+\subsection{Projections}
+\begin{definition} Projections
+
+    \[\text{proj}_{\Vec{u}} \Vec{v} = \frac{\Vec{v} \cdot \Vec{u}}{\Vec{u} \cdot \Vec{u}}\Vec{u}\]
+\end{definition}
+
+\subsection{Inverse of Orthonormal Matrix}
+\begin{theorem} Inverse of Orthonormal Matrix
+
+The inverse of an orthonormal matrix \(A\) is \(A^{-1}=A^T\). In other words, \(A A^T = I\).
+\end{theorem}
+
+\subsection{Orthogonal Decomposition Theorem}
+\begin{theorem}
+    Let \(W\) be a subspace of \(\Re^n\). Then, each vector \(\Vec{y}\in \Re^n\) has the unique decomposition:
+    \[\Vec{y}=\hat{y}+w^\perp, \; \hat{y}\in W, \; w^\perp \in W^\perp\]
+    And, if \(\Vec{u_1},\dots,\Vec{u_p}\) is any orthogonal basis for \(W\).
+    \[\hat{y}=\frac{\Vec{y}\Vec{u_1}}{\Vec{u_1}\Vec{u_1}}\Vec{u_1} + \dots + \frac{\Vec{y}\Vec{u_p}}{\Vec{u_p}\Vec{u_p}}\Vec{u_p}\]
+    We say that \(\hat{y}\) is the orthogonal projection of \(\Vec{y}\) onto \(W\).
+\end{theorem}
+
+\subsection{Best Approximation Theorem}
+\begin{theorem}
+    Let \(W\) be a subspace of \(\Re^n\), \(\Vec{y}\in\Re^n\), and \(\hat{y}\) is the orthogonal projection of \(\Vec{y}\) onto \(W\). Then for any \(\Vec{w}\ne \hat{y} \in W\), we have:
+    \[||\Vec{y}-\hat{y}|| < ||\Vec{y}-\Vec{w}||\]
+    That is, \(\hat{y}\) is the unique vector in \(W\) that is closest to \(\Vec{y}\).
+\end{theorem}

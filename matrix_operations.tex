@@ -1,0 +1,47 @@
+\section{Matrix Operations}
+\subsection{Properties}
+\noindent
+Given that A is an \(m \times n\) matrix.
+
+\noindent
+\newline
+The following are \textbf{facts}:
+\begin{enumerate}
+    \item Associative: \((AB)C = A(BC)\)
+    \item Left Distributive: \(A(B+C) = AB + AC\)
+    \item Right Distributive: \((A+B)C = AC + BC\)
+    \item Identity: \(I_m A = A I_n\)
+\end{enumerate}
+
+\noindent
+\newline
+The following are \textbf{non-facts}:
+\begin{enumerate}
+    \item Non-commutative: \(AB \ne BA\)
+    \item Non-cancellation: \(AB = AC\), does not imply \(B=C\)
+    \item Zero Divisors: \(AB = 0\) does not imply that either \(A=0\) or \(B=0\).
+\end{enumerate}
+
+\subsection{Transpose of a Matrix}
+\noindent
+\(A^T\) is the matrix whose columns are the rows of \(A\).
+
+\noindent
+\newline
+Properties:
+
+\begin{enumerate}
+    \item \((A^T)^T=A\)
+    \item \((A+B)^T = A^T + B^T\)
+    \item \((rA)^T = rA^T\)
+    \item \((AB)^T = B^T A^T\)
+\end{enumerate}
+
+\subsection{Matrix Powers}
+\begin{equation}
+    A^k = AA\dots A
+\end{equation}
+
+\noindent
+\newline
+When \(A\) is a diagonal matrix (non-zero terms only on the main diagonal), the power computation just exponentiates the main diagonal elements.

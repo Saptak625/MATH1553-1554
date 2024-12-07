@@ -1,0 +1,175 @@
+\section{Inverse of a Matrix}
+\subsection{Definition}
+\begin{definition}
+    \(A \in R^{n\times n}\) is invertible if there is a \(C \in R^{n\times n}\) so that:
+    \[AC = CA = I\]
+\end{definition}
+
+\subsection{Inverse of \(2\times 2 \) Matrix}
+\begin{align}
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}^{-1} = \frac{1}{ad - bc}\begin{pmatrix}
+        d & -b \\
+        -c & a
+    \end{pmatrix}
+\end{align}
+
+\subsection{Using Inverses to Solve Linear Systems}
+\begin{align}
+    3 x + 4 y &= 7 \\
+    5 x + 6 y &= 7
+\end{align}
+
+\begin{align}
+    \begin{pmatrix}
+        3 & 4 \\
+        5 & 6
+    \end{pmatrix}^{-1} = \begin{pmatrix}
+        -3 & 2 \\
+        \frac{5}{2} & -\frac{3}{2}
+    \end{pmatrix}
+\end{align}
+
+\begin{equation}
+    \begin{pmatrix}
+        -3 & 2 \\
+        \frac{5}{2} & -\frac{3}{2}
+    \end{pmatrix} \begin{pmatrix}
+        7 \\ 7
+    \end{pmatrix} = \begin{pmatrix}
+        -7 \\ 7
+    \end{pmatrix}
+\end{equation}
+
+\subsection{Properties of Inverses}
+\(A\) and \(B\) are invertible \(n\times n\) matrices.
+\begin{enumerate}
+    \item \((A^{-1})^{-1}=A\)
+    \item \((AB)^{-1}=B^{-1}A^{-1}\)
+    \item \((A^T)^{-1} = (A^{-1})^T\)
+\end{enumerate}
+
+\subsection{General Algorithm for Computing \(A^{-1}\)}
+\begin{align}
+    \begin{pmatrix}[ccc|ccc]
+        0 & 1 & 2 & 1 & 0 & 0 \\
+        1 & 0 & 3 & 0 & 1 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 1
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|ccc]
+        1 & 0 & 3 & 0 & 1 & 0 \\
+        0 & 1 & 2 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 & 1
+    \end{pmatrix} \\
+\end{align}
+
+\noindent
+\newline
+Therefore, \(A^{-1}\) is \(\begin{pmatrix}
+    0 & 1 & 0 \\
+    1 & 0 & 0 \\
+    0 & 0 & 1
+\end{pmatrix}\). Thus, the inverse of a matrix is the product of the elementary matrices that turned the \(A\) matrix to RREF.
+
+\subsection{Invertible Matrix Theorem}
+Criteria for having an inverse are below. All statements are equivalent. Thus, if one statement is true, all are true. If one statement is false, all are false. \(A\) is an \(n \times n\) square matrix.
+
+\begin{enumerate}
+    \item \(A\) is invertible.
+    \item \(A\) is row equivalent to \(I_n\).
+    \item \(A\) has \(n\) pivotal columns.
+    \item \(A \vec{x} = \Vec{0}\) only has the trivial solution.
+    \item The columns of A are linearly independent.
+    \item The linear transformation \(\Vec{x} \rightarrow A \Vec{x}\) is one-to-one.
+    \item The equation \(A \Vec{x} = \Vec{b}\) has a solution for all \(\Vec{b}\in \Re^n\).
+    \item The columns of \(A\) span \(\Re^n\).
+    \item The linear transformation \(\Vec{x} \rightarrow A \Vec{x}\) is onto.
+    \item There is a \(n \times n\) matrix \(C\) so that \(C A = I_n\). (Left Inverse).
+    \item There is a \(n \times n\) matrix \(D\) so that \(A D = I_n\). (Right Inverse).
+    \item \(A^T\) is invertible.
+    \item The columns of \(A\) are a basis for \(\Re^n\).
+    \item \(\text{Col} \; A = \Re^n\)
+    \item \(\text{rank} \; A = \text{dim}(\text{Col} \; A) = n\)
+    \item \(\text{Null} \; A = \{\Vec{0}\}\)
+    \item \((\text{Col} \; A)^\perp = \{\Vec{0}\}\)
+    \item \((\text{Nul} \; A)^\perp = \Re^n\)
+    \item \(\text{Row} \; A = \Re^n\)
+    \item \(A\) has \(n\) nonzero singular values.
+\end{enumerate}
+
+\begin{theorem}
+    If \(A\) and \(B\) are \(n \times n\) matrices and \(A B = I\), then \(A = B^{-1}\) and \(B = A^{-1}\).
+\end{theorem}
+
+\noindent
+\newline
+\textbf{Ex: Is this matrix invertible?}
+\begin{align}
+    \begin{pmatrix}
+        1 & 0 & -2 \\
+        3 & 1 & -2 \\
+        -5 & -1 & 9
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 0 & -2 \\
+        0 & 1 & 4 \\
+        0 & 0 & 3
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Since the matrix has pivots in every column, the matrix is invertible.
+
+\begin{definition}
+    A singular matrix is non-invertible. A non-singular matrix is invertible.
+\end{definition}
+
+\subsection{Partitioned Matrix}
+The matrix \(A\) can be represented as \(\begin{pmatrix}
+    A_{1,1} & A _{1,2} \\
+    A_{2,1} & A_{2,2}
+\end{pmatrix}\).
+
+\noindent
+\newline
+\textbf{Ex: Find the inverse of \(\begin{pmatrix}
+    A & B \\
+    0 & C
+\end{pmatrix}\).}
+
+\begin{equation}
+    \begin{pmatrix}
+        A & B \\
+        0 & C
+    \end{pmatrix}
+    \begin{pmatrix}
+        X & Y \\
+        W & Z
+    \end{pmatrix} =
+    \begin{pmatrix}
+        AX + BW & AY + BZ \\
+        0X + CW & 0Y + CZ
+    \end{pmatrix} =
+    \begin{pmatrix}
+        I_n & 0 \\
+        0 & I_n
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Therefore, \(Z = C^{-1}\), \(W = 0\), \(X = A^{-1}\), \(Y=-A^{-1}BC^{-1}\).
+
+\begin{equation}
+    \begin{pmatrix}
+        X & Y \\
+        W & Z
+    \end{pmatrix} = \begin{pmatrix}
+        A^{-1} & -A^{-1}BC^{-1} \\
+        0 & C^{-1}
+    \end{pmatrix}
+\end{equation}
+
+\subsection{Strassen Algorithm}
+Matrix multiplication is \(O(n^3)\). Strassen's Algorithm uses matrix partitions to get to \(O(n^{2.803\dots})\).

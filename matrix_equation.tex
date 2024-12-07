@@ -1,0 +1,480 @@
+\section{Matrix Equation}
+\subsection{Linear Combinations and Span}
+\begin{definition}
+    Linear Combinations
+    \newline
+    A is a \(m\times n\) matrix with columns \(\Vec{a_1}, \dots, \Vec{a_n}\) and \(x\in \Re^n\), then the matrix-vector product \(A\Vec{x}\) is a linear combination of the columns of A:
+    \begin{equation}
+        A\Vec{x} = 
+        \begin{pmatrix}
+            \spike{15pt}{$\Vec{a_1}$}  & \spike{15pt}{$\Vec{a_2}$} & \spike{15pt}{$\Vec{a_3}$}
+        \end{pmatrix}
+        \begin{pmatrix}
+            x_1 \\
+            x_2 \\
+            x_3
+        \end{pmatrix} = x_1 \Vec{a_1} + x_2 \Vec{a_2} + x_3 \Vec{a_3}
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    Span 
+    \newline
+    The Span of a set of vectors \(\Vec{v_1}, \dots, \Vec{v_p}\) in \(Re^n\) is: \[\text{Span}\{\Vec{v_1}, \dots, \Vec{v_p}\} = \{x_1 \Vec{v_1} + \dots + x_2 \Vec{v_p} \; | \; x_1, \dots, x_p \in \Re\}\]
+\end{definition}
+
+\noindent
+For what vectors \(\Vec{b} = \begin{pmatrix}
+    b_1 \\ b_2 \\ b_3
+\end{pmatrix}\), does the equation have a solution?
+
+\begin{equation}
+    \begin{pmatrix}
+        1 & 3 & 4 \\
+        2 & 8 & 4 \\
+        0 & 1 & -2
+    \end{pmatrix}
+    \Vec{x} = \Vec{b}
+\end{equation}
+
+\noindent
+\textbf{Solution: Row Reduce \([A | b]\)}
+\begin{align}
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 4 & b_1 \\
+        2 & 8 & 4 & b_2 \\
+        0 & 1 & -2 & b_3
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 4 & b_1 \\
+        0 & 2 & -4 & -2b_1 + b_2 \\
+        0 & 1 & -2 & b_3
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 4 & b_1 \\
+        0 & 1 & -2 & b_3 \\
+        0 & 2 & -4 & -2b_1 + b_2
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 4 & b_1 \\
+        0 & 1 & -2 & b_3 \\
+        0 & 0 & 0 & -2b_1 + b_2 - 2b_3
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\(-2b_1 + b_2 - 2b_3 \neq 0\) is a pivot. Furthermore, the system will be consistent when \(-2b_1 + b_2 - 2b_3 = 0\).
+
+\noindent
+\newline
+\textbf{Q: When is \(\Vec{b} = \begin{pmatrix}
+    b_1 \\ b_2 \\ b_3
+\end{pmatrix}\) in the span of \(\begin{pmatrix}
+    1 \\ 2 \\ 0
+\end{pmatrix}\), \(\begin{pmatrix}
+    3 \\ 8 \\ 1
+\end{pmatrix}\), \(\begin{pmatrix}
+    4 \\ 4 \\ -2
+\end{pmatrix}\)?}
+
+\noindent
+Same solution. \(\Vec{b}\) is in the span of the vectors when it can be expressed as a linear combination. In other words, some real scalars \(x_1, x_2, x_3\) can be used to create a linear combination of the three column vectors to result in \(\Vec{b}\).
+
+\noindent
+\newline
+\textbf{Let A = \(\begin{pmatrix}
+    1 & 3 & 4 \\
+    -4 & 2 & -6 \\
+    -3 & -2 & -7
+    \end{pmatrix}\) and \(\Vec{b} = \begin{pmatrix}
+        b_1 \\ b_2 \\ b_3
+    \end{pmatrix}\). Is the equation \(A\Vec{x} = \Vec{b}\) consistent for all possible \(b_1, b_2, b_3\)?}
+
+\noindent
+Solution: Row Reduce A
+\begin{align}
+    \begin{pmatrix}
+    1 & 3 & 4 \\
+    -4 & 2 & -6 \\
+    -3 & -2 & -7
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 3 & 4 \\
+        0 & 7 & 5 \\
+        0 & 0 & 0
+    \end{pmatrix} \\
+\end{align}
+
+\noindent
+If A does not have a pivot in every row, then some choice of \(\Vec{b}\) will make a pivot in \([A|b]\) inconsistent.
+
+\subsection{Solution Sets of Linear Systems}
+\begin{definition}
+    Homogeneity
+    Linear systems of the form \(A\Vec{x} = \Vec{0}\) are homogeneous.
+    Linear systems of the form \(A\Vec{x} = \Vec{b}\) are inhomogeneous.
+\end{definition}
+
+\noindent
+Because homogeneous systems always have the trivial solution, \(\Vec{x} = \Vec{0}\), the interesting question is how many solutions the system will have.
+
+\noindent
+\newline
+\textbf{Solution Set for a Homogeneous System:}
+
+\noindent
+\textit{Row Reduce \([A|\Vec{0}]\)}
+
+\begin{align}
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 0 \\
+        2 & -1 & 5 & 0 \\
+        1 & 0 & -2 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 0 \\
+        0 & -7 & -7 & 0 \\
+        0 & -3 & -3 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 0 \\
+        0 & 1 & 1 & 0 \\
+        0 & 1 & 1 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 0 \\
+        0 & 1 & 1 & 0 \\
+        0 & 0 & 0 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 0 & -2 & 0 \\
+        0 & 1 & 1 & 0 \\
+        0 & 0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+Rewrite the Equations:
+\begin{align}
+    x_1 - 2x_3 &= 0 \\
+    x_2 + x_3 &= 0 \\
+    x_3 &= x_3
+\end{align}
+
+\noindent
+\newline
+Move free variables to RHS. This results in parametric equation form.
+\begin{align}
+    x_1 &= 2x_3 \\
+    x_2 &= -x_3 \\
+    x_3 &= x_3
+\end{align}
+
+\noindent
+\newline
+Therefore, the vector parametric form is:
+\begin{equation}
+    \Vec{x} = x_3 \begin{pmatrix}
+        2 \\
+        -1 \\
+        1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+The solution is a line in \(\Re^3\).
+
+\noindent
+\newline
+\textbf{Inhomogeneous Case:}
+\begin{align}
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 9 \\
+        2 & -1 & 5 & 11 \\
+        1 & 0 & -2 & 6
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 9 \\
+        0 & -7 & -7 & -7 \\
+        0 & -3 & -3 & -3
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 3 & 1 & 9 \\
+        0 & 1 & 1 & 1 \\
+        0 & 1 & 1 & 1
+    \end{pmatrix} \\
+    \begin{pmatrix}[ccc|c]
+        1 & 0 & -2 & 6 \\
+        0 & 1 & 1 & 1 \\
+        0 & 0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+Rewrite the Equations:
+\begin{align}
+    x_1 - 2x_3 &= 6 \\
+    x_2 + x_3 &= 1 \\
+    x_3 &= x_3
+\end{align}
+
+\noindent
+\newline
+Move free variables to RHS. This results in parametric equation form.
+\begin{align}
+    x_1 &= 6 + 2x_3 \\
+    x_2 &= 1 - x_3 \\
+    x_3 &= x_3
+\end{align}
+
+\noindent
+\newline
+Therefore, the vector parametric form is:
+\begin{equation}
+    \Vec{x} = \begin{pmatrix}
+        6 \\
+        1 \\
+        0
+    \end{pmatrix} + x_3 \begin{pmatrix}
+        2 \\
+        -1 \\
+        1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+The solution is a line in \(\Re^3\). The particular solution is \(\begin{pmatrix}
+        6 \\
+        1 \\
+        0
+\end{pmatrix}\). The general solutions to \(A\Vec{x}=\Vec{b}\) are general solutions of \(A\Vec{x}=\Vec{0}\) plus a particular solution.
+
+\noindent
+\newline
+\textbf{Find general solutions to both \(A\Vec{x}=\Vec{b}\) and \(A\Vec{x}=\Vec{0}\).}
+\begin{align}
+    A&=\begin{pmatrix}
+        1 & 3 & 0 & -4 \\
+        2 & 6 & 0 & -8
+    \end{pmatrix} \\
+    \Vec{x} &= \begin{pmatrix}
+        1 \\ 2 \\ 3 \\ 4
+    \end{pmatrix} \\
+    \Vec{b} &= \begin{pmatrix}
+        -9 \\ -18
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+Row reduce \([A | b]\).
+\begin{align}
+    \begin{pmatrix}[cccc|c]
+        1 & 3 & 0 & -4 & -9 \\
+        2 & 6 & 0 & -8 & -18
+    \end{pmatrix} \\
+    \begin{pmatrix}[cccc|c]
+        1 & 3 & 0 & -4 & -9 \\
+        0 & 0 & 0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+Rewrite the Equations:
+\begin{align}
+    x_1 + 3x_2 -4x_4 &= -9 \\
+    x_2 &= x_2 \\
+    x_3 &= x_3 \\
+    x_4 &= x_4 \\
+\end{align}
+
+\noindent
+\newline
+Move free variables to RHS. This results in parametric equation form.
+\begin{align}
+    x_1 &= -9 - 3x_2 + 4 x_4 \\
+    x_2 &= x_2 \\
+    x_3 &= x_3 \\
+    x_4 &= x_4 \\
+\end{align}
+
+\noindent
+\newline
+Therefore, the vector parametric form is:
+\begin{equation}
+    \Vec{x} = \begin{pmatrix}
+        -9 \\
+        0 \\
+        0 \\
+        0
+    \end{pmatrix} + x_2 \begin{pmatrix}
+        -3 \\
+        1 \\
+        0 \\
+        0
+    \end{pmatrix} + x_3 \begin{pmatrix}
+        0 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix} + x_4 \begin{pmatrix}
+        4 \\
+        0 \\
+        0 \\
+        1
+    \end{pmatrix}
+\end{equation}
+The solution is a 3D-object in \(\Re^4\). The particular solution is \(\begin{pmatrix}
+        -9 \\
+        0 \\
+        0 \\
+        0
+\end{pmatrix}\). The general solutions to \(A\Vec{x}=\Vec{b}\) are general solutions of \(A\Vec{x}=\Vec{0}\) plus a particular solution. Therefore, the solution to \(A\Vec{x} = \Vec{0}\) is:
+\begin{equation}
+    \Vec{x} = x_2 \begin{pmatrix}
+        -3 \\
+        1 \\
+        0 \\
+        0
+    \end{pmatrix} + x_3 \begin{pmatrix}
+        0 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix} + x_4 \begin{pmatrix}
+        4 \\
+        0 \\
+        0 \\
+        1
+    \end{pmatrix}
+\end{equation}
+
+\subsection{Linear Independence}
+\begin{definition}
+    An indexed set of vectors \(\{\Vec{v_1}, \dots, \Vec{v_p}\}\) in \(Re^n\) is said to be linearly independent if the vector equation:
+    \[x_1\Vec{v_1} + x_2\Vec{v_2} + \dots + x_p \Vec{v_p} = 0\]
+    has only the trivial solution. The set \(\{\Vec{v_1}, \dots, \Vec{v_p}\}\) is said to be linearly dependent if the vector equation \[x_1\Vec{v_1} + x_2\Vec{v_2} + \dots + x_p \Vec{v_p} = 0\] has an infinite number of solutions where some values in \(x_1, \dots, x_p\) are non-zero.
+\end{definition}
+
+\noindent
+\newline
+\textbf{Ex. 1: Is the following linearly independent: \(\begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix}, \begin{pmatrix}2 \\ 1 \\ 3\end{pmatrix}, \begin{pmatrix}0 \\ 1 \\ 1\end{pmatrix}\)}
+
+\noindent
+\newline
+Solution:
+\begin{align}
+    \begin{pmatrix}
+        1 & 2 & 0 \\
+        0 & 1 & 1 \\
+        1 & 3 & 1
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 2 & 0 \\
+        0 & 1 & 1 \\
+        0 & 1 & 1
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 0 & -2 \\
+        0 & 1 & 1 \\
+        0 & 0 & 0
+    \end{pmatrix} \\
+\end{align}
+
+\noindent
+\newline
+Rewrite the Equations:
+\begin{align}
+    x_1 - 2x_3 &= 0 \\
+    x_2 + x_3 &= 0 \\
+    x_3 &= x_3
+\end{align}
+
+\noindent
+\newline
+Move free variables to RHS. This results in parametric vector form.
+\begin{equation}
+    \Vec{x} = x_3 \begin{pmatrix}
+        2 \\
+        -1 \\
+        1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+Therefore, the system is linearly dependent because there are non-trivial solutions to the coefficient matrix. Specifically, one dependence relation is:
+\begin{equation}
+    \begin{pmatrix}
+        1 & 2 & 0 \\
+        0 & 1 & 1 \\
+        1 & 3 & 1
+    \end{pmatrix} \begin{pmatrix}
+        2 \\
+        -1 \\
+        1
+    \end{pmatrix} = 2\begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix} - \begin{pmatrix}2 \\ 1 \\ 3\end{pmatrix} + \begin{pmatrix}0 \\ 1 \\ 1\end{pmatrix} = \begin{pmatrix}0 \\ 0 \\ 0\end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+\textbf{Ex. 2: Is the following linearly independent: \(\begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix}, \begin{pmatrix}2 \\ 2 \\ 0\end{pmatrix}, \begin{pmatrix}0 \\ 2 \\ 1\end{pmatrix}\)}
+
+\noindent
+\newline
+Solution:
+\begin{align}
+    \begin{pmatrix}[ccc|c]
+        1 & 2 & 0 & 0\\
+        0 & 2 & 2 & 0 \\
+        1 & 0 & 1 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 2 & 0 & 0\\
+        0 & 1 & 1 & 0 \\
+        0 & -2 & 1 & 0
+    \end{pmatrix} \\
+    \begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0
+    \end{pmatrix} \\
+\end{align}
+
+\noindent
+\newline
+Rewrite the Equations:
+\begin{align}
+    x_1 &= 0 \\
+    x_2 &= 0 \\
+    x_3 &= 0
+\end{align}
+
+\noindent
+\newline
+Therefore, the system is linearly independent because there is only the trivial solution to the coefficient matrix.
+\begin{equation}
+    \begin{pmatrix}
+        1 & 2 & 0 \\
+        0 & 2 & 2 \\
+        1 & 0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        0 \\
+        0 \\
+        0
+    \end{pmatrix} = 0\begin{pmatrix}1 \\ 0 \\ 1\end{pmatrix} + 0\begin{pmatrix}2 \\ 2 \\ 0\end{pmatrix} + 0\begin{pmatrix}0 \\ 2 \\ 1\end{pmatrix} = \begin{pmatrix}0 \\ 0 \\ 0\end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+\textbf{Ex. 3: Is the following linearly independent: \(\begin{pmatrix}1 \\ 0 \\ 0\end{pmatrix}, \begin{pmatrix}0 \\ 1 \\ 0\end{pmatrix}, \begin{pmatrix}3 \\ 2 \\ 0\end{pmatrix}\)}
+
+\noindent
+\newline
+Solution: Linearly dependent. A dependence relation is:
+\begin{equation}
+    3\begin{pmatrix}1 \\ 0 \\ 0\end{pmatrix} + 2\begin{pmatrix}0 \\ 1 \\ 0\end{pmatrix} - \begin{pmatrix}3 \\ 2 \\ 0\end{pmatrix} = \begin{pmatrix}0 \\ 0 \\ 0\end{pmatrix}
+\end{equation}

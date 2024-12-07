@@ -1,0 +1,111 @@
+\section{Finite State Markov Chains}
+\subsection{Steady-State Vector and Google Page Rank}
+The steady state vector can be found by applying \(P\Vec{q}=\Vec{q}\), which means that the row is reduced \(P-I\). By definition, the steady state vector \(\Vec{q}\) will have an eigenvalue of 1.
+
+\noindent
+If \(P\) is regular, then \(P^n \Vec{e_i}=\Vec{q}\). Therefore:
+
+\begin{equation}
+    P = \begin{pmatrix}
+        \Vec{q} & \Vec{q} & \dots & \Vec{q}
+    \end{pmatrix}
+\end{equation}
+
+\begin{theorem} Google Page Rank
+
+If \(P\) is a regular \(m \times m\) transition matrix with \(m \ge 2\), then the following statements are all true.
+\begin{enumerate}
+    \item There is a stochastic matrix \(\Pi\) such that:
+    \[\lim_{n\rightarrow\infty} P^n=\Pi\]
+    \item Each column of \(\Pi\) is the same probability vector \(\Vec{q}\).
+    \item For any initial probability vector \(\Vec{x_0}\),
+    \[\lim_{n\rightarrow\infty} P^n \Vec{x_0} = \Vec{q}\]
+    \item \(P\) has a unique eigenvector, \(\Vec{q}\), which has eigenvalue \(\lambda=1\).
+    \item The eigenvalues of \(P\) satisfy \(|\lambda| \le 1\).
+\end{enumerate}
+    
+\end{theorem}
+
+\noindent
+\newline
+\textbf{Example 1:}
+\begin{enumerate}
+    \item Generate the Google Matrix.
+    \item Adjust matrix to fix columns that do not sum to 1 (aka have no links).
+    \item Use damping factor to adjust for user behavior.
+    \item Solve \(G\Vec{q}=\Vec{q}\).
+\end{enumerate}
+\begin{align}
+    P &= \begin{pmatrix}
+        0 & 0.5 & 0.5 & 0 & 0 \\
+        0.5 & 0 & 0.5 & 0.5 & 0 \\
+        0 & 0.5 & 0 & 0 & 0 \\
+        0.5 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0.5 & 0
+    \end{pmatrix} \\
+    P^* &= \begin{pmatrix}
+        0 & 0.5 & 0.5 & 0 & 0.2 \\
+        0.5 & 0 & 0.5 & 0.5 & 0.2 \\
+        0 & 0.5 & 0 & 0 & 0.2 \\
+        0.5 & 0 & 0 & 0 & 0.2 \\
+        0 & 0 & 0 & 0.5 & 0.2
+    \end{pmatrix}
+\end{align}
+\begin{align}
+    K &= \begin{pmatrix}
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+    \end{pmatrix} \\
+    G &= 0.85 P^* + 0.15 K \\
+    \Vec{q} &= \begin{pmatrix}
+        0.251 \\ 0.298 \\ 0.1766 \\ 0.156 \\ 0.116
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Therefore, the page ranking is B, A, C, D, E.
+
+\noindent
+\newline
+\textbf{Example 2:}
+\begin{enumerate}
+    \item Generate the Google Matrix.
+    \item Adjust matrix to fix columns that do not sum to 1 (aka no links).
+    \item Use damping factor to adjust for user behavior.
+    \item Solve \(G\Vec{q}=\Vec{q}\).
+\end{enumerate}
+\begin{align}
+    P &= \begin{pmatrix}
+        0 & 0 & 1 & 0 & 0 \\
+        \frac{1}{3} & 0 & 0 & \frac{1}{2} & 0 \\
+        \frac{1}{3} & 0 & 0 & \frac{1}{2} & 0 \\
+        \frac{1}{3} & \frac{1}{2} & 0 & 0 & 0 \\
+        0 & \frac{1}{2} & 0 & 0 & 0
+    \end{pmatrix} \\
+    P^* &= \begin{pmatrix}
+        0 & 0 & 1 & 0 & \frac{1}{5} \\
+        \frac{1}{3} & 0 & 0 & \frac{1}{2} & \frac{1}{5} \\
+        \frac{1}{3} & 0 & 0 & \frac{1}{2} & \frac{1}{5} \\
+        \frac{1}{3} & \frac{1}{2} & 0 & 0 & \frac{1}{5} \\
+        0 & \frac{1}{2} & 0 & 0 & \frac{1}{5}
+    \end{pmatrix}
+\end{align}
+\begin{align}
+    K &= \begin{pmatrix}
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+    \end{pmatrix} \\
+    G &= 0.85 P^* + 0.15 K \\
+    \Vec{q} &= \begin{pmatrix}
+        0.231 \\ 0.208 \\ 0.208 \\ 0.208 \\ 0.142
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Therefore, the page ranking is A, (B, C, D), E.

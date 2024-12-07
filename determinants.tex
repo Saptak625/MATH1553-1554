@@ -1,0 +1,116 @@
+\section{Determinants}
+\subsection{Definition}
+\begin{definition}
+    Definition of Determinant
+    Suppose \(A\) is \(n \times n\) and has elements \(a_{ij}\).
+\begin{enumerate}
+    \item If \(n=1\), \(A=a_{11}\), and has determinant \(\text{det} \; A = a_{11}\).
+    \item Inductive case: for \(n > 1\),
+    \[\text{det} \; A = a_{11} \text{det} \; A_{11} - a_{12} \text{det} \; A_{12} + \dots + (-1)^{1+n} a_{1n} \text{det} \; A_{1n}\]
+    where \(A_{ij}\) is the submatrix obtained by eliminating row \(i\) and column \(j\) of \(A\).
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Cofactors
+
+    The \((i, j)\) cofactor of an \(n\times n\) matrix A is:
+    \[C_{ij} = (-1)^{i+j} \text{det} \; A_{ij}\]
+\end{definition}
+
+\begin{theorem}
+    The determinant of a matrix \(A\) can be computed down any row or column of the matrix. For instance, down the jth column, the determinant is:
+    \[\text{det} \; A = a_{1j} C_{1j} + a_{2j} C_{2j} + \dots + a_{nj} C_{nj}\]
+\end{theorem}
+
+\subsection{Determinant of a \(3 \times 3\) Matrix}
+\begin{align}
+    \text{det} \begin{pmatrix}
+        1 & -5 & 0 \\
+        2 & 4 & -1 \\
+        0 & 2 & 0
+    \end{pmatrix} = 1 \begin{vmatrix}
+        4 & -1 \\ 2 & 0
+    \end{vmatrix} - (-5) \begin{vmatrix}
+        2 & -1 \\ 0 & 0
+    \end{vmatrix} + 0 \begin{vmatrix}
+        2 & 4 \\ 0 & 2
+    \end{vmatrix} = 2
+\end{align}
+
+\subsection{Determinants of Triangular Matrices}
+\begin{theorem}
+    If \(A\) is a triangular matrix then,
+    \[\text{det} \; A = a_{11} a_{22} a_{33} \dots a_{nn}\]
+\end{theorem}
+
+\subsection{Properties of the Determinant}
+\begin{theorem}
+    For any square matrices \(A\) and \(B\), we can show the following.
+    \begin{enumerate}
+        \item \(\text{det} \; A = \text{det} \; A^T\)
+        \item \(A\) is invertible iff \(\text{det} \; A \ne 0\).
+        \item \(\text{det} (A B)= (\text{det} \; A) (\text{det} \; B)\)
+        \item \(\text{det} (2A) = 2^n \text{det} \; A\)
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Row Operations and the Determinant:
+    
+    Let \(A\) be a square matrix.
+    \begin{enumerate}
+        \item If a multiple of a row of \(A\) is added to another row to produce \(B\), then \(\text{det} \; B = \text{det} \; A\).
+        \item If two rows are interchanged to produce \(B\), then \(\text{det} \; B = -\text{det} \; A\).
+        \item If one row of \(A\) is multiplied by a scaler \(k\) to produce \(B\), then \(\text{det} \; B = k \text{det} \; A\).
+    \end{enumerate}
+\end{theorem}
+
+\noindent
+\newline
+Example: Compute \(\text{det} \; A=\begin{vmatrix}
+    1 & -4 & 2 \\
+    -2 & 8 & -9 \\
+    -1 & 7 & 0
+\end{vmatrix}\).
+
+\begin{enumerate}
+    \item \(2R_1 + R_2 \rightarrow R_2\)
+    \item \(R_1 + R_3 \rightarrow R_3\)
+    \item \(R_2 \leftrightarrow R_3\)
+    \item \(-\frac{1}{5} R_3 \rightarrow R_3\)
+\end{enumerate}
+
+\begin{align}
+    \begin{vmatrix}
+        1 & -4 & 2 \\
+        0 & 0 & -5 \\
+        0 & 3 & 2
+    \end{vmatrix} \\
+    \begin{vmatrix}
+        1 & -4 & 2 \\
+        0 & 3 & 2 \\
+        0 & 0 & -5
+    \end{vmatrix} \\
+    \begin{vmatrix}
+        1 & -4 & 2 \\
+        0 & 3 & 2 \\
+        0 & 0 & 1
+    \end{vmatrix}
+\end{align}
+
+\begin{align}
+    E_4 E_3 E_2 E_1 A &= B \\
+    -\frac{1}{5} * -1 * 1 * 1 * \text{det} \; A = \text{det} \; B &= 3 \\
+    \text{det} \; A &= 15
+\end{align}
+
+\subsection{Volume from Determinants}
+The absolute value of the determinant of an \(n \times n\) matrix represents the volume of a \(n\) dimensional parallepiped where the sides are the basis vectors of the matrix.
+
+When a linear transformation occurs, the volume of the shape is scaled by the absolute value of the determinant.
+
+\begin{theorem}
+    If \(T_A : \Re^n \rightarrow \Re^n\), and \(S\) is some parallelogram in \(\Re^n\), then:
+    \[\text{volume}(T_A(S)) = | \text{det} (A) | \times \text{volume}(S)\]
+\end{theorem}

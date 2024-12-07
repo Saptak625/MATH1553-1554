@@ -1,0 +1,124 @@
+\section{Markov Chains}
+\subsection{Introduction}
+\begin{enumerate}
+    \item A small town has two libraries, A and B.
+    \item After 1 month, among the books checked out of A,
+        \begin{enumerate}
+            \item 80\% returned to A.
+            \item 20\% returned to B.
+        \end{enumerate}
+    \item After 1 month, among the books checked out of B,
+        \begin{enumerate}
+            \item 30\% returned to A.
+            \item 70\% returned to B.
+        \end{enumerate}    
+\end{enumerate}
+
+\noindent
+State after \(n\) months is:
+
+\begin{equation}
+    X_n = 1000 x_n = 1000 \times \begin{pmatrix}
+        0.8 & 0.3 \\ 0.2 & 0.7 
+    \end{pmatrix}^n \begin{pmatrix}
+        0.5 \\
+        0.5
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Where:
+\begin{itemize}
+    \item \(x_n\) is the nth element of the Markov Chain.
+    \item \(X_n\) is the nth state of the system.
+\end{itemize}
+
+\subsection{Steady State of a Markov Chain}
+\begin{definition} Markov Chain Definitions:
+    \begin{enumerate}
+        \item A probability vector is a vector, \(\Vec{x}\), with non-negative elements that sum to 1.
+        \item A stochastic matrix is a square matrix, \(P\), whose columns are probability vectors.
+        \item A Markov Chain is a sequence of probability vectors \(\Vec{x_k}\), and a stochastic matrix \(P\), such that:
+        \[\Vec{x_{k+1}} = P \Vec{x_k},\; k=0,1,2,\dots\]
+        \item A steady-state vector for P is a vector \(\Vec{q}\) such that \(P\Vec{q}=\Vec{q}\).
+    \end{enumerate}
+\end{definition}
+
+
+\noindent
+Example 1: Find a steady-state vector for the stochastic matrix.
+\begin{equation}
+    \begin{pmatrix}
+        0.8 & 0.3 \\
+        0.2 & 0.7
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Since:
+\begin{align}
+    P \Vec{x} &= \Vec{x} \\
+    P \Vec{x} - \Vec{x} &= \Vec{0} \\
+    P \Vec{x} - I \Vec{x} &= \Vec{0} \\
+    (P - I) \Vec{x} &= \Vec{0}
+\end{align}
+
+\begin{align}
+    \text{rref}(P - I) = \begin{pmatrix}
+        1 & - \frac{3}{2} \\
+        0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Determine \(x_2\) by ensuring that \(x_1 + x_2 = 1\).
+\begin{align}
+    x_2 = \frac{1}{\frac{3}{2}+1} = \frac{2}{5}
+\end{align}
+
+\noindent
+Thus, \(\Vec{q} = \begin{pmatrix}
+    \frac{3}{5} & \frac{2}{5}
+\end{pmatrix}\).
+
+\subsection{Convergence for a Regular Stochastic Matrix}
+\begin{definition}
+    A stochastic matrix \(P\) is regular if there is some k such that \(P^k\) only contains strictly positive entries.
+\end{definition}
+\begin{theorem}
+    If \(P\) is a regular stochastic matrix, then \(P\) has a unique steady-state vector \(\Vec{q}\), and \(\Vec{x_k+1}=P\Vec{x_k}\) converges to \(\Vec{q}\) as \(k \rightarrow \infty\).
+\end{theorem}
+
+\noindent
+Example 2: Find a steady-state vector for the stochastic matrix.
+\begin{equation}
+    \begin{pmatrix}
+        0.8 & 0.1 & 0.2 \\
+        0.2 & 0.6 & 0.3 \\
+        0.0 & 0.3 & 0.5
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Since \(P\) is regular, a unique steady-state vector must exist.
+
+\begin{equation}
+    P-I = \begin{pmatrix}
+        -0.2 & 0.1 & 0.2 \\
+        0.2 & -0.4 & 0.3 \\
+        0.0 & 0.3 & -0.5
+    \end{pmatrix}
+\end{equation}
+
+\begin{align}
+    \text{rref}(P-I) &= \begin{pmatrix}
+        1 & 0 & -\frac{11}{6} \\
+        0 & 1 & -\frac{5}{3} \\
+        0 & 0 & 0
+    \end{pmatrix} \\
+    \Vec{q} &= \begin{pmatrix}
+        \frac{11}{27} \\
+        \frac{10}{27} \\
+        \frac{6}{27}
+    \end{pmatrix}
+\end{align}

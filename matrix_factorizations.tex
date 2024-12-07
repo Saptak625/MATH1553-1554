@@ -1,0 +1,124 @@
+\section{Matrix Factorization}
+Examples:
+\begin{align}
+    A &= LU \\
+    A &= QR \\
+    A &= PDP^{-1} \\
+    A &= U \Sigma V^T
+\end{align}
+
+\subsection{LU Decomposition}
+\begin{theorem}
+    If \(A\) is an \(m \times n\) matrix that can be row reduced to echelon form without row exchanges, then \(A = LU\). \(L\) is a lower triangular \(m \times m\) matrix with 1's on the diagonal. \(U\) is an echelon form of \(A\).
+\end{theorem}
+
+\begin{definition} Types of Matrices
+    \newline
+    Upper Triangular Matrix: if \(a_{i,j} = 0\) for \(i > j\).
+    \newline
+    Lower Triangular Matrix: if \(a_{i,j} = 0\) for \(i < j\).
+    \newline
+    Diagonal: Both upper and lower, if \(a_{i,j} = 0\) for \(i \ne j\).
+\end{definition}
+
+\noindent
+\newline
+Example 1:
+\begin{enumerate}
+    \item \(4R_1 + R_2 \rightarrow R_2\)
+    \item \(-2R_1 + R_3 \rightarrow R_3\)
+    \item \(-5R_1 + R_3 \rightarrow R_3\)
+\end{enumerate}
+
+\begin{align}
+    A &= \begin{pmatrix}
+        4 & -3 & -1 & 5 \\
+        -16 & 12 & 2 & -17 \\
+        8 & -6 & -12 & 22
+    \end{pmatrix} \\
+    &\begin{pmatrix}
+        4 & -3 & -1 & 5 \\
+        0 & 0 & -2 & 3 \\
+        0 & 0 & -10 & 12
+    \end{pmatrix} \\
+    U &= \begin{pmatrix}
+        4 & -3 & -1 & 5 \\
+        0 & 0 & -2 & 3 \\
+        0 & 0 & 0 & -3
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Use the scaling factors to determine \(L\),
+\begin{align}
+    L = \begin{pmatrix}
+        1 & 0 & 0 \\
+        -4  & 1 & 0 \\
+        2 & 5 & 1
+    \end{pmatrix}
+\end{align}
+
+\subsection{Why LU Decomposition works?}
+\begin{align}
+    E_3 E_2 E_1 A &= U \\
+    A &= E_1^{-1} E_2^{-1} E_3^{-1} U \\
+    A &= L U
+\end{align}
+
+\noindent
+\newline
+LU decompositions do not always exist and the decompositions are not always unique.
+
+\subsection{Solving using LU Decomposition}
+\begin{enumerate}
+    \item \(L\Vec{y}=\Vec{b}\)
+    \item \(U\Vec{x}=\Vec{y}\)
+\end{enumerate}
+
+\noindent
+\newline
+Example:
+\begin{align}
+    A &= LU = \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        1 & 1 & 0 & 0 \\
+        1 & 2 & 1 & 0 \\
+        0 & -1 & -1 & 1
+    \end{pmatrix}\begin{pmatrix}
+        1 & 1 & 0 \\
+        0 & -1 & -1 \\
+        0 & 0 & 2 \\
+        0 & 0 & 0
+    \end{pmatrix} \\
+    \Vec{b} &= \begin{pmatrix}
+        16 \\ 2 \\ -4 \\6
+    \end{pmatrix}
+\end{align}
+
+\noindent
+Step 1: Row reduce \((L|\Vec{b})\).
+\begin{equation}
+    \begin{pmatrix}[cccc|c]
+        1 & 0 & 0 & 0 & 16 \\
+        0 & 1 & 0 & 0 & -14 \\
+        0 & 0 & 1 & 0 & 8 \\
+        0 & 0 & 0 & 1 & 0
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Step 2: Row reduce \((U|\Vec{y})\).
+\begin{equation}
+    \begin{pmatrix}[ccc|c]
+        1 & 0 & 0 & 6 \\
+        0 & 1 & 0 & 10 \\
+        0 & 0 & 1 & 4 \\
+        0 & 0 & 0 & 0
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+Therefore, \(\Vec{x} = \begin{pmatrix}
+    6 \\ 10 \\ 4
+\end{pmatrix}\).

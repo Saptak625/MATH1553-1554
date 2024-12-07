@@ -1,0 +1,93 @@
+\section{Linear Transformations}
+\subsection{Introduction}
+Functions can be expressed as so:
+\begin{equation}
+    f: \; \Re \rightarrow \Re
+\end{equation}
+
+\noindent
+A \(m \times n\) matrix transformation can be expressed as:
+\begin{equation}
+    T: \; \Re^n \rightarrow \Re^m, \; T(\vec{v}) = A \vec{v}
+\end{equation}
+
+\noindent
+The vector \(T(\vec{v})\) is the image of \(\vec{v}\) under \(T\). The set of all possible images \(T(\vec{v})\) is the range.
+
+\begin{definition}
+    A function \(T\):  \(\Re^n\rightarrow\Re^m\) is linear if:
+    \begin{itemize}
+        \item \(T(\vec{u}+\vec{v}) = T(\vec{u}) + T(\vec{v})\) for all \(\vec{u}, \vec{v}\) in \(\Re^n\).
+        \item \(T(c\vec{v}) = cT(\vec{v})\) for all \(\vec{v}\) in \(\Re^n\), and \(c\) in \(\Re\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    The principle of superposition:
+    
+    If \(T\) is linear, then:
+    \[T(c_1\Vec{v_1} + \dots + c_k \Vec{v_k}) = c_1 T(\vec{v_1}) + \dots + c_k T(\vec{v_k})\]
+\end{definition}
+
+\subsection{Standard Basis Vectors}
+\noindent
+For example, in \(\Re^3\),
+\begin{align}
+    \Vec{e_1} &= \begin{pmatrix}
+        1 \\ 0 \\ 0
+    \end{pmatrix} \\
+    \Vec{e_2} &= \begin{pmatrix}
+        0 \\ 1 \\ 0
+    \end{pmatrix} \\
+    \Vec{e_3} &= \begin{pmatrix}
+        0 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+What is the linear transform \(T(\Vec{x})=A\Vec{x}\) to rotate counterclockwise by angle \(\theta\)?
+
+\begin{align}
+    A &= \begin{pmatrix}
+        cos(\theta) & cos(\theta + \frac{\pi}{2}) \\
+        sin(\theta) & sin(\theta + \frac{\pi}{2}) \\
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        cos(\theta) & -sin(\theta) \\
+        sin(\theta) & cos(\theta) \\
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+Let \(T(\Vec{x}=A\Vec{x}\) be the transformation which first reflects vectors in \(\Re^2\) across the line \(y=0\) and then projects the resulting vector to the y-axis. Thus:
+\begin{equation}
+    A = \begin{pmatrix}
+        0 & 0 \\
+        0 & -1
+    \end{pmatrix}
+\end{equation}
+
+\subsection{Onto and One-to-one Transformations}
+\begin{definition}
+    A linear transformation \(T: \; \Re^n \rightarrow \Re^m\) is onto if for all \(\Vec{b} \in \Re^m\) there is a \(\Vec{x} \in \Re^n\) so that \(T(\Vec{x})=\Vec{b}\). In other words, \(A\Vec{x}=\Vec{b}\) is always consistent. There are pivots in every row.
+\end{definition}
+
+\begin{definition}
+    A linear transformation \(T: \; \Re^n \rightarrow \Re^m\) is one-to-one if for all \(\Vec{b} \in \Re^m\) there is at most one (possibly no) so that \(T(\Vec{x})=\Vec{b}\). There are pivots in every column.
+\end{definition}
+
+\noindent
+\newline
+\textbf{One-to-one but not onto?}
+
+\noindent
+Tall matrix. There is a pivot in every column, but not a pivot in every row.
+
+\noindent
+\newline
+\textbf{Onto but not one-to-one?}
+
+\noindent
+Wide matrix. There is a pivot in every row, but not in every column.

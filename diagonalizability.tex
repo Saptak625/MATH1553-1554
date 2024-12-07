@@ -1,0 +1,319 @@
+\section{Diagonalizability}
+\subsection{Powers of Diagonal Matrices}
+\begin{align}
+    A &= \begin{pmatrix}
+        3 & 0 \\ 0 & 0.5
+    \end{pmatrix} \\
+    A^2 &= \begin{pmatrix}
+        3^2 & 0 \\ 0 & 0.5^2
+    \end{pmatrix} \\
+    A^k &= \begin{pmatrix}
+        3^k & 0 \\ 0 & 0.5^k
+    \end{pmatrix}
+\end{align}
+
+\subsection{Diagonalization}
+\begin{definition}
+    Suppose \(A \in \Re^{n \times n}\). We say that \(A\) is diagonalizable if it is similar to a diagonal matrix, \(D\). The columns of \(P\) are the eigenvectors of \(A\). \(D\) is a diagonal matrix with the corresponding eigenvalues along the main diagonal. That is, we can write:
+    \[A = P D P^{-1}\]
+\end{definition}
+
+\noindent
+Suppose:
+\begin{align}
+    D &= \begin{pmatrix}
+        \lambda_1 & 0 & 0 \\
+        0 & \lambda_2 & 0 \\
+        0 & 0 & \lambda_3
+    \end{pmatrix} \\
+    P &= \begin{pmatrix}
+            \spike{15pt}{$\Vec{v_1}$}  & \spike{15pt}{$\Vec{v_2}$} & \spike{15pt}{$\Vec{v_3}$}
+        \end{pmatrix}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 1: Diagonalize if possible.}
+\begin{equation}
+    \begin{pmatrix}
+        2 & 6 \\ 0 & -1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\(\lambda_1 = 2\), \(\lambda_2 = -1\) because upper triangular. The basis for 2-eigenspace is \(\left\{ \begin{pmatrix}
+    1 \\ 0
+\end{pmatrix} \right\}\). The basis for -1-eigenspace is \(\left\{ \begin{pmatrix}
+    -2 \\ 1
+\end{pmatrix} \right\}\).
+
+\begin{align}
+    \begin{pmatrix}
+        2 & 6 \\ 0 & -1
+    \end{pmatrix} = \begin{pmatrix}
+        -2 & 1 \\ 1 & 0
+    \end{pmatrix} \begin{pmatrix}
+        -1 & 0 \\ 0 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+        -2 & 1 \\ 1 & 0
+    \end{pmatrix}^{-1}
+\end{align}
+
+\noindent
+\newline
+\textbf{Example 2: Diagonalize if possible.}
+\begin{equation}
+    \begin{pmatrix}
+        3 & 1 \\ 0 & 3
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\(\lambda_1 = 3\), \(\lambda_2 = 3\) because upper triangular. The basis for 3-eigenspace is \(\left\{ \begin{pmatrix}
+    1 \\ 0
+\end{pmatrix} \right\}\).
+
+\begin{align}
+    \begin{pmatrix}
+        3 & 1 \\ 0 & 3
+    \end{pmatrix} \ne \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        3 & 0 \\ 0 & 3
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix}^{-1}
+\end{align}
+
+\noindent
+Not diagonalizable, since the \(\text{rank} \begin{pmatrix}
+        1 & 1 \\ 0 & 0
+    \end{pmatrix} \ne 2\). \(P^{-1}\) does not exist due to IMT.
+
+\noindent
+\newline
+\textbf{Example 3: Diagonalize if possible.}
+\begin{equation}
+    \begin{pmatrix}
+        7 & 4 & 16 \\ 2 & 5 & 8 \\ -2 & -2 & -5
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\(\lambda_1 = 3\), \(\lambda_2 = 1\) because upper triangular. 
+
+\begin{align}
+    A - I = \begin{pmatrix}
+        6 & 4 & 16 \\ 2 & 4 & 8 \\ -2 & -2 & -6
+    \end{pmatrix} \Rightarrow \begin{pmatrix}
+        1 & 0 & 2 \\
+        0 & 1 & 1 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+The basis for 1-eigenspace is \(\left\{ \begin{pmatrix}
+    -2 \\ -1 \\ 1
+\end{pmatrix} \right\}\). 
+
+\begin{align}
+    A - 3I = \begin{pmatrix}
+        4 & 4 & 16 \\
+        2 & 2 & 8 \\
+        -2 & -2 & -8
+    \end{pmatrix} \Rightarrow \begin{pmatrix}
+        1 & 1 & 4 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+The basis for 3-eigenspace is \(\left\{ \begin{pmatrix}
+    -1 \\ 1 \\ 0
+\end{pmatrix} \begin{pmatrix}
+    -4 \\ 0 \\ 1
+\end{pmatrix} \right\}\).
+
+\begin{align}
+    \begin{pmatrix}
+        7 & 4 & 16 \\ 2 & 5 & 8 \\ -2 & -2 & -5
+    \end{pmatrix} = \begin{pmatrix}
+        -2 & -1 & -4 \\ -1 & 1 & 0 \\ 1 & 0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 3 & 3 \\ 0 & 0 & 3
+    \end{pmatrix}
+    \begin{pmatrix}
+        -2 & -1 & -4 \\ -1 & 1 & 0 \\ 1 & 0 & 1
+    \end{pmatrix}^{-1}
+\end{align}
+
+\subsection{Diagonalization Theorem}
+\begin{theorem}
+    An \(n\times n\) matrix \(A\) is diagonalizable if and only if \(A\) has \(n\) linearly independent eigenvectors. In fact, \(A=PDP^{-1}\), with \(D\) a diagonal matrix, if and only if the columns of \(P\) are \(n\) linearly independent eigenvectors of \(A\). In this case, the diagonal entries of \(D\) are eigenvalues of \(A\) that correspond, respectively, to the eigenvectors in \(P\).
+\end{theorem}
+
+\noindent
+\newline
+\textbf{Example 3: Diagonalize if possible. \(\lambda_1=1, \lambda_2=-2\)}
+\begin{equation}
+    \begin{pmatrix}
+        2 & 4 & 2 \\ -4 & -6 & -3 \\ 3 & 3 & 1
+    \end{pmatrix}
+\end{equation}
+
+\begin{align}
+    A - I = \begin{pmatrix}
+        1 & 4 & 3 \\ -4 & -7 & -3 \\ 3 & 3 & 0
+    \end{pmatrix} \Rightarrow \begin{pmatrix}
+        1 & 0 & -1 \\
+        0 & 1 & 1 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+The basis for 1-eigenspace is \(\left\{ \begin{pmatrix}
+    1 \\ -1 \\ 1
+\end{pmatrix} \right\}\). 
+
+\begin{align}
+    A + 2I = \begin{pmatrix}
+        4 & 4 & 3 \\
+        -4 & -4 & -3 \\
+        3 & 3 & 3
+    \end{pmatrix} \Rightarrow \begin{pmatrix}
+        1 & 1 & 0 \\
+        0 & 0 & 1 \\
+        0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+\noindent
+The basis for -2-eigenspace is \(\left\{ \begin{pmatrix}
+    -1 \\ 1 \\ 0
+\end{pmatrix} \right\}\).
+
+\begin{align}
+    \begin{pmatrix}
+        2 & 4 & 2 \\ -4 & -6 & -3 \\ 3 & 3 & 1
+    \end{pmatrix} \ne \begin{pmatrix}
+        1 & -1 & * \\
+        -1 & 1 & * \\
+        1 & 0 & *
+    \end{pmatrix} \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & -2 & 0 \\
+        0 & 0 & *
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & -1 & * \\
+        -1 & 1 & * \\
+        1 & 0 & *
+    \end{pmatrix}^{-1}
+\end{align}
+
+\noindent
+Not diagonalizable, since the \(\text{rank} \begin{pmatrix}
+        1 & -1 & * \\
+        -1 & 1 & * \\
+        1 & 0 & *
+    \end{pmatrix} \ne 3\) (algebraic multiplicity for one eigenvalue is greater than the geometric multiplicity). \(P^{-1}\) does not exist due to IMT.
+
+\subsection{Basis of Eigenvectors}
+\textbf{Example 1:} Express the vector \(\Vec{x_0}=\begin{pmatrix}
+    4 \\ 5
+\end{pmatrix}\) as a linear combination of the vectors \(\Vec{v_1}=\begin{pmatrix}
+    1 \\ 1
+\end{pmatrix}\) and \(\Vec{v_2}= \begin{pmatrix}
+    1 \\ -1
+\end{pmatrix}\) and find the coordinates of \(\Vec{x_0}\) in the basis \(B=\{\Vec{v_1},\Vec{v_2}\}\).
+
+\begin{equation}
+    [\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \\ -\frac{1}{2}
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Let \(P=[\Vec{v_1}, \Vec{v_2}]\) and \(D=\begin{pmatrix}
+    1 & 0 \\ 0 & -1
+\end{pmatrix}\), and find \([A^k\Vec{x_0}]_B\), where \(A=PDP^{-1}\), for \(k=1,2,\dots\).
+\begin{equation}
+    A = \begin{pmatrix}
+        0 & 1 \\ 1 & 0
+    \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+    [A^k\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \\ (-1)^{k+1}\frac{1}{2}
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+\textbf{Example 2:} Express the vector \(\Vec{x_0}=\begin{pmatrix}
+    4 \\ 5
+\end{pmatrix}\) as a linear combination of the vectors \(\Vec{v_1}=\begin{pmatrix}
+    1 \\ 1
+\end{pmatrix}\) and \(\Vec{v_2}= \begin{pmatrix}
+    1 \\ -1
+\end{pmatrix}\) and find the coordinates of \(\Vec{x_0}\) in the basis \(B=\{\Vec{v_1},\Vec{v_2}\}\).
+
+\begin{equation}
+    [\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \\ -\frac{1}{2}
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Let \(P=[\Vec{v_1}, \Vec{v_2}]\) and \(D=\begin{pmatrix}
+    1 & 0 \\ 0 & -\frac{1}{2}
+\end{pmatrix}\), and find \([A^k\Vec{x_0}]_B\), where \(A=PDP^{-1}\), for \(k=1,2,\dots\).
+\begin{equation}
+    A = \begin{pmatrix}
+        0.25 & 0.75 \\ 0.75 & 0.25
+    \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+    [A^k\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \\ (-\frac{1}{2})^{k+1}
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+\newline
+\textbf{Example 3:} Express the vector \(\Vec{x_0}=\begin{pmatrix}
+    4 \\ 5
+\end{pmatrix}\) as a linear combination of the vectors \(\Vec{v_1}=\begin{pmatrix}
+    1 \\ 1
+\end{pmatrix}\) and \(\Vec{v_2}= \begin{pmatrix}
+    1 \\ -1
+\end{pmatrix}\) and find the coordinates of \(\Vec{x_0}\) in the basis \(B=\{\Vec{v_1},\Vec{v_2}\}\).
+
+\begin{equation}
+    [\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \\ -\frac{1}{2}
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Let \(P=[\Vec{v_1}, \Vec{v_2}]\) and \(D=\begin{pmatrix}
+    2 & 0 \\ 0 & \frac{3}{2}
+\end{pmatrix}\), and find \([A^k\Vec{x_0}]_B\), where \(A=PDP^{-1}\), for \(k=1,2,\dots\).
+\begin{equation}
+    A = \begin{pmatrix}
+        1.75 & 0.25 \\ 0.25 & 1.75
+    \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+    [A^k\Vec{x_0}]_B = \begin{pmatrix}
+        \frac{9}{2} \cdot 2^k \\ -\frac{1}{2}(\frac{3}{2})^k
+    \end{pmatrix}
+\end{equation}

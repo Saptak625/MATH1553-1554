@@ -1,0 +1,212 @@
+\newline
+\section{Least-Squares Problems}
+\begin{definition}
+    If \(A\) is \(m\times n\) and \(\Vec{b}\) is in \(\Re^m\), a least-squares solution of \(A\Vec{x}= \Vec{b}\) is an \(\hat{x}\) in \(\Re^n\) such that:
+    \[||\Vec{b} - A\hat{x}|| \le ||\Vec{b}-A\Vec{x}||\]
+
+    \noindent
+    for all \(\Vec{x}\) in \(\Re^n\).
+\end{definition}
+
+\noindent
+\newline
+\textbf{Example 1: Find a least-squares solution of the inconsistent system \(A\Vec{x} = \Vec{b}\) for:}
+\begin{align}
+    A = \begin{pmatrix}
+        4 & 0 \\ 0 & 2 \\ 1 & 1
+    \end{pmatrix}, \; \; \;
+    \Vec{b} = \begin{pmatrix}
+        2 \\ 0 \\ 11
+    \end{pmatrix}
+\end{align}
+
+\begin{enumerate}
+    \item Compute \(A^T A\) and \(A^T \Vec{b}\)
+    \item Solve \(A^T A \hat{x}=A^T \Vec{b}\)
+\end{enumerate}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        4 & 0 & 1 \\ 0 & 2 & 1
+    \end{pmatrix} \begin{pmatrix}
+        4 & 0 \\ 0 & 2 \\ 1 & 1 
+    \end{pmatrix} = \begin{pmatrix}
+        17 & 1 \\ 1 & 5
+    \end{pmatrix} \\
+    A^T \Vec{b} &= \begin{pmatrix}
+        4 & 0 & 1 \\ 0 & 2 & 1
+    \end{pmatrix} \begin{pmatrix}
+        2 \\ 0 \\ 11
+    \end{pmatrix} = \begin{pmatrix}
+        19 \\ 11
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    [A^T A | A^T \Vec{b}] &= \begin{pmatrix}[cc|c]
+        17 & 1 & 19 \\ 1 & 5 & 11
+    \end{pmatrix} \\
+    &\Rightarrow \begin{pmatrix}[cc|c]
+        1 & 0 & 1 \\
+        0 & 1 & 2
+    \end{pmatrix} \\
+    \hat{x} = \begin{pmatrix}
+        1 \\ 2
+    \end{pmatrix}
+\end{align}
+
+\noindent
+\(\hat{x}\) provides the weights to multiply by the columns of \(A\) in order to find the projection of \(\Vec{b}\).
+
+\noindent
+\newline
+\textbf{Example 2: Fit a line \(y=\alpha x+\beta\) that best fits the data (0,0.5), (1,1), (2,2.5), (3,3).}
+
+\begin{enumerate}
+    \item Plug in data into the model.
+    \item Compute \(A^T A\) and \(A^T \Vec{b}\)
+    \item Solve \(A^T A \hat{x}=A^T \Vec{b}\)
+\end{enumerate}
+
+\begin{align}
+    0.5 &= \alpha \cdot 0 + \beta \\
+    1 &= \alpha \cdot 1 + \beta \\
+    2.5 &= \alpha \cdot 2 + \beta \\
+    3 &= \alpha \cdot 3 + \beta
+\end{align}
+
+\begin{align}
+    A = \begin{pmatrix}
+        0 & 1 \\ 1 & 1 \\ 2 & 1 \\ 3 & 1
+    \end{pmatrix}, \; \; \;
+    \Vec{b} = \begin{pmatrix}
+        0.5 \\ 1 \\ 2.5 \\ 3
+    \end{pmatrix}, \; \; \;
+    \Vec{x} = \begin{pmatrix}
+        \alpha \\ \beta
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        0 & 1 & 2 & 3 \\ 1 & 1 & 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        0 & 1 \\ 1 & 1 \\ 2 & 1 \\ 3 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        14 & 6 \\ 6 & 4
+    \end{pmatrix} \\
+    A^T \Vec{b} &= \begin{pmatrix}
+        0 & 1 & 2 & 3 \\ 1 & 1 & 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        0.5 \\ 1 \\ 2.5 \\ 3
+    \end{pmatrix} = \begin{pmatrix}
+        15 \\ 7
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    A^T A \hat{x} &= A^T \Vec{b} \\
+    \hat{x} &= (A^T A)^{-1} A^T \Vec{b} \\
+    &= \frac{1}{20} \begin{pmatrix}
+        4 & -6 \\
+        -6 & 14
+    \end{pmatrix} \begin{pmatrix}
+        15 \\ 7
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        0.9 \\ 0.4
+    \end{pmatrix}
+\end{align}
+
+\noindent
+The Sum of Squared Errors (SSE) \(||\Vec{b}-\hat{b}||^2=\sum_{i=1}^k (\Vec{b}_i - \hat{b}_i)^2\) is minimized. \(\frac{1}{k}||\Vec{b}-\hat{b}||^2=\frac{1}{k}\sum_{i=1}^k (\Vec{b}_i - \hat{b}_i)^2\) is equivalent to the Mean Squared Error (MSE) of the line.
+
+\subsection{Proof of Least Squares}
+\begin{align}
+    \Vec{b} - \hat{b} \in (\text{Col}\; A)^\perp &= \text{Nul} \; A^T \\
+    A^T (\Vec{b} - \hat{b}) &= \Vec{0} \\
+    A^T \Vec{b} - A^T \hat{b} &= \Vec{0} \\
+    A^T \Vec{b} - A^T A \Vec{x} &= \Vec{0} \\
+    A^T A \Vec{x} &= A^T \Vec{b}
+\end{align}
+
+\subsection{Using Least Squares for Complex Models}
+\textbf{Example 1: Fit a line \(y=\alpha x^2+\beta x + \gamma\) that best fits the data (0,1), (1,1), (2,3).}
+
+\begin{enumerate}
+    \item Plug in data into the model.
+    \item Compute \(A^T A\) and \(A^T \Vec{b}\)
+    \item Solve \(A^T A \hat{x}=A^T \Vec{b}\)
+\end{enumerate}
+
+\begin{align}
+    1 &= \alpha \cdot 0 + \beta \cdot 0 + \gamma \\
+    1 &= \alpha \cdot 1 + \beta \cdot 1 + \gamma \\
+    3 &= \alpha \cdot 4 + \beta \cdot 2 + \gamma
+\end{align}
+
+\begin{align}
+    A = \begin{pmatrix}
+        0 & 0 & 1 \\ 1 & 1 & 1 \\ 4 & 2 & 1
+    \end{pmatrix}, \; \; \;
+    \Vec{b} = \begin{pmatrix}
+        1 \\ 1 \\ 3
+    \end{pmatrix}, \; \; \;
+    \Vec{x} = \begin{pmatrix}
+        \alpha \\ \beta \\ \gamma
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    A^T A &= \begin{pmatrix}
+        0 & 1 & 4 \\ 0 & 1 & 2 \\ 1 & 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        0 & 0 & 1 \\ 1 & 1 & 1 \\ 4 & 2 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        17 & 9 & 5 \\
+        9 & 5 & 3 \\
+        5 & 3 & 3
+    \end{pmatrix} \\
+    A^T \Vec{b} &= \begin{pmatrix}
+        0 & 1 & 4 \\ 0 & 1 & 2 \\ 1 & 1 & 1
+    \end{pmatrix} \begin{pmatrix}
+        1 \\ 1 \\ 3
+    \end{pmatrix} = \begin{pmatrix}
+        13 \\ 7 \\ 5
+    \end{pmatrix}
+\end{align}
+
+\begin{align}
+    A^T A \hat{x} &= A^T \Vec{b} \\
+    \hat{x} &= (A^T A)^{-1} A^T \Vec{b} \\
+    &= \begin{pmatrix}
+        \frac{1}{2} & -1 & \frac{1}{2} \\
+        -\frac{3}{2} & 2 & -\frac{1}{2} \\
+        1 & 0 & 0
+    \end{pmatrix} \begin{pmatrix}
+        13 \\ 7 \\ 5
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        1 \\ -1 \\ 1
+    \end{pmatrix}
+\end{align}
+
+\subsection{Unique Solutions for Least Squares}
+\begin{theorem}
+    Let \(A\) be any \(m\times n\) matrix. These statements are equivalent.
+    \begin{enumerate}
+        \item The equation \(A\Vec{x} = \Vec{b}\) has a unique least-squares solution for each \(\Vec{b} \in \Re^m\).
+        \item The columns of \(A\) are linearly independent.
+        \item The matrix \(A^T A\) is invertible.
+    \end{enumerate}
+    And, if these statements hold, the least square solution is:
+    \[\hat{x} = (A^T A)^{-1} A^T \Vec{b}\]
+\end{theorem}
+
+\subsection{Least Squares and QR Decomposition}
+\begin{theorem} Least Squares and QR Decomposition
+
+    Let \(m\times n\) matrix \(A\) have a QR decomposition. Then for each \(\Vec{b} \in \Re^m\) the equation \(A \Vec{x} = \Vec{b}\) has a unique least squares solution
+    \[R \hat{x} = Q^T \Vec{b}\]
+    (Remember, R is upper triangular, so the equation above is solved by back-substitution.)
+\end{theorem}

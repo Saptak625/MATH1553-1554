@@ -1,0 +1,139 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+\colorlet{LightBlue}{Blue!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\spike}[2]% #1 = size of spike, #2 = centered text
+{\bgroup
+  \sbox0{#2}%
+  \rlap{\usebox0}%
+  \hspace{0.5\wd0}%
+  \makebox[0pt][c]{\rule[\dimexpr \ht0+1pt]{0.5pt}{#1}}% top spike
+  \makebox[0pt][c]{\rule[\dimexpr -\dp0-#1-1pt]{0.5pt}{#1}}% bottom spike
+  \hspace{0.5\wd0}%
+\egroup}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=LightGray}
+
+\declaretheoremstyle[
+    name=Definition,
+    bodyfont=\upshape % This ensures definitions are upright (not italic)
+]{defsty}
+\declaretheorem[name=Definition,]{defsty}
+\declaretheorem[style=defsty,numberlike=theorem]{definition}
+\tcolorboxenvironment{definition}{colback=LightBlue}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+\tcolorboxenvironment{proposition}{colback=LightOrange}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+\tcolorboxenvironment{principle}{colback=LightGreen}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+		\\ [2.0cm]
+		\HRule{1.5pt} \\
+		\LARGE \textbf{\uppercase{MATH 1553/1554\\ Linear Algebra}
+		\HRule{2.0pt} \\ \vspace*{10\baselineskip}}
+		}
+\date{}
+\author{\textbf{Saptak Das} \\ 
+		Fall 2024}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Overview}
+\begin{itemize}
+    \item Heavily conceptual.
+    \begin{itemize}
+        \item Careful choice of terms.
+    \end{itemize}
+    \item Steep Difficulty Change.
+\end{itemize}
+
+\noindent
+\newline
+\textbf{Linear algebra is everywhere:}
+\begin{itemize}
+    \item Your Computer
+    \item Data Compression
+    \item Quantum Physics
+    \item Population Studies (Epidemiology)
+    \item Google Page Rank and Singular Value Decomposition
+\end{itemize}
+
+\input{systems_of_linear_equations}
+\input{matrix_equation}
+\input{linear_transformations}
+\input{matrix_operations}
+\input{inverse}
+\input{matrix_factorizations}
+\input{subspaces}
+\input{dimension_and_rank}
+\input{determinants}
+\input{markov_chains}
+\input{eigenvectors_eigenvalues}
+\input{diagonalizability}
+\input{complex_eigenvalues}
+\input{orthogonality}
+\input{gram_schmidt}
+\input{least_squares}
+\input{finite_state_markov_chains}
+\input{symmetric_matrices}
+\input{quadratic_forms}
+\input{constrained_optimization}
+\input{svd}
+
+\end{document}

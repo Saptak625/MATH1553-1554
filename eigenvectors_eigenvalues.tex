@@ -1,0 +1,181 @@
+\section{Eigenvectors and Eigenvalues}
+\subsection{Introduction}
+\begin{definition}
+    If \(A \in \Re^{n\times n}\), and there is a \(\Vec{v} \ne \Vec{0}\) in \(\Re^n\), and
+    \[A\Vec{v} = \lambda \Vec{v}\]
+    then \(\Vec{v}\) is an eigenvector for \(A\), and \(\lambda \in \mathbb{C}\) is the corresponding eigenvalue.
+\end{definition}
+
+\noindent
+Example 1: For \(A = \begin{pmatrix}
+    1 & 1 \\ 1 & 1
+\end{pmatrix}\), are the following eigenvectors?
+\begin{enumerate}
+    \item \(\begin{pmatrix}
+        1 \\ 1 
+    \end{pmatrix}\): Yes. \(\lambda=2\).
+    \item \(\begin{pmatrix}
+        1 \\ -1
+    \end{pmatrix}\): Yes. \(\lambda=0\).
+    \item \(\begin{pmatrix}
+        0 \\0 
+    \end{pmatrix}\): No. The \(\Vec{0}\) cannot be an eigenvector.
+\end{enumerate}
+
+\noindent
+Example 2: Confirm that \(\lambda=3\) is an eigenvalue of \(A = \begin{pmatrix}
+    2 & -4 \\ -1 & -1
+\end{pmatrix}\).
+
+\begin{align}
+    A\Vec{v} &= \lambda \Vec{v} \\
+    A\Vec{v} - \lambda I \Vec{v} &= \Vec{0} \\
+    (A-\lambda I) \Vec{v} &= \Vec{0}
+\end{align}
+
+\noindent
+In this case, \(\lambda = 3\).
+
+\begin{equation}
+    A - 3I = \begin{pmatrix}
+        -1 & -4 \\ -1 & -4
+    \end{pmatrix} \rightarrow \begin{pmatrix}
+        1 & 4 \\ 0 & 0
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Thus, \(\begin{pmatrix}
+    -4 \\ 1
+\end{pmatrix}\) is the eigenvector when \(\lambda = 3\).
+
+\subsection{Eigenspace}
+\begin{definition}
+    Suppose \(A \in \Re^{n\times n}\). The eigenvectors for a given \(\lambda\) span a subspace of \(\Re^n\) called the \(\lambda\)-eigenspace of A. The \(\lambda\)-eigenspace of a matrix \(A\) is \(\text{Nul}(A-\lambda I)\).
+\end{definition}
+
+\noindent
+Example 1: let \(A= \begin{pmatrix}
+    5 & -6 \\ 3 & -4
+\end{pmatrix}\) and \(\lambda=2\).
+
+\begin{equation}
+    A - 2 I = \begin{pmatrix}
+        3 & -6 \\ 3 & -6
+    \end{pmatrix} \rightarrow \begin{pmatrix}
+        1 & -2 \\ 0 & 0
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Thus, a basis for the eigenspace is \(\begin{pmatrix}
+    2 \\ 1
+\end{pmatrix}\).
+
+\noindent
+Example 2: let \(A= \begin{pmatrix}
+    4 & -1 & 6 \\
+    2 & 1 & 6 \\
+    2 & -1 & 8
+\end{pmatrix}\) and \(\lambda=2\).
+
+\begin{equation}
+    A - 2 I = \begin{pmatrix}
+    2 & -1 & 6 \\
+    2 & -1 & 6 \\
+    2 & -1 & 6
+\end{pmatrix} \rightarrow \begin{pmatrix}
+    1 & -\frac{1}{2} & 3 \\
+    0 & 0 & 0 \\
+    0 & 0 & 0
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+    \Vec{x} = x_1 \begin{pmatrix}
+        \frac{1}{2}  \\ 1 \\ 0 
+    \end{pmatrix} + x_2 \begin{pmatrix}
+        -3 \\ 0 \\ 1
+    \end{pmatrix}
+\end{equation}
+
+\noindent
+Therefore, the basis for the eigenspace is \(\left\{\begin{pmatrix}
+        \frac{1}{2}  \\ 1 \\ 0 
+    \end{pmatrix},\begin{pmatrix}
+        -3 \\ 0 \\ 1
+    \end{pmatrix}\right\}\).
+
+\subsection{IMT Theorems}
+\begin{theorem} IMT (Continued.)
+    \begin{enumerate}
+        \item The diagonal elements of a triangular matrix are its eigenvalues.
+        \item \(A\) is invertible \(\Leftrightarrow 0\) is not an eigenvalue of \(A\).
+        \item If \(\Vec{v_1}, \Vec{v_2}, \dots, \Vec{v_k}\) are eigenvectors that correspond to distinct eigenvalues, then \(\Vec{v_1}, \Vec{v_2}, \dots, \Vec{v_k}\) are linearly independent.
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Characteristic Polynomial}
+The quantity \(\text{det} (A -\lambda I)\) is the characteristic polynomial of \(A\). The quantity \(\text{det} (A -\lambda I)=0\) is the characteristic equation of \(A\). The roots of the characteristic polynomial are the eigenvalues of A.
+
+\noindent
+\newline
+Example 1:
+\begin{align}
+    p(\lambda) &= \text{det} \begin{pmatrix}
+        5-\lambda & 2 \\ 2 & 1-\lambda
+    \end{pmatrix} = \lambda^2 -6 \lambda + 1 \\
+    \lambda &= \frac{6 \pm \sqrt{32}}{2} = 3 \pm 2\sqrt{2}
+\end{align}
+
+\noindent
+\newline
+General Case:
+\begin{align}
+    \text{det}\begin{pmatrix}
+        a-\lambda & b \\ c & d-\lambda
+    \end{pmatrix} = \lambda^2 - (a+d)\lambda + ad - bc
+\end{align}
+
+\noindent
+Therefore, \(p(\lambda) = \lambda^2 - \text{tr} \; A + \text{det} \; A\).
+
+\subsection{Multiplicities}
+\begin{definition} Algebraic Multiplicity
+
+    The algebraic multiplicity of an eigenvalue is its multiplicity as a root of the characteristic polynomial.
+\end{definition}
+
+\begin{definition} Geometric Multiplicity
+
+    The geometric multiplicity of an eigenvalue \(\lambda\) is the dimension of \(\text{Null} (A-\lambda I)\).
+    
+\end{definition}
+
+\noindent
+\newline
+Example of a \(4\times 4\) matrix with \(\lambda = 3\) as the only eigenvalue, but the geometric multiplicity of \(\lambda = 3\) is one.
+
+\begin{equation}
+    A = \begin{pmatrix}
+        3 & 1 & 2 & 2 \\ 0 & 3 & 1 & 2 \\ 0 & 0 & 3 & 1 \\ 0 & 0 & 0 & 3
+    \end{pmatrix}
+\end{equation}
+
+\subsection{Similar Matrices}
+\begin{definition}
+    Two \(n \times n\) matrices A and B are similar if there is a matrix P so that \(A = PBP^{-1}\).
+\end{definition}
+
+\begin{theorem}
+    If \(A\) and \(B\) are similar, then they have the same characteristic polynomial.
+\end{theorem}
+
+\subsection{Applications of Eigenvalues and Eigenvectors}
+\noindent
+Consider the Markov Chain:
+\begin{equation}
+    \Vec{x_{k+1}} = P \Vec{x_0} = \begin{pmatrix}
+        0.6 & 0.4 \\ 0.4 & 0.6
+    \end{pmatrix}
+\end{equation}
